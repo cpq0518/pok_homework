@@ -63,6 +63,7 @@ typedef struct
 	 uint64_t     time_capacity;
 	 uint64_t     remaining_time_capacity;
 	 uint64_t     next_activation;
+	 uint64_t     weight;//self-adding
 	 pok_state_t  state;
 	 uint64_t	end_time;
 	 uint64_t     wakeup_time;

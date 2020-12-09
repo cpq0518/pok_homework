@@ -423,12 +423,13 @@ uint32_t pok_sched_part_rms (const uint32_t index_low, const uint32_t index_high
       }
    }
    while ((res != index_low) &&
-	  (pok_threads[res].state != POK_STATE_RUNNABLE));
+	  (pok_threads[res].state != POK_STATE_RUNNABLE));/*循环体为空，只判断不进行任何计算
+      分号表示结束循环体: when res=index_low or state=RUNNABLE时结束循环*/              
 
    if ((res == index_low) && (pok_threads[res].state != POK_STATE_RUNNABLE))
    {
       res = IDLE_THREAD;
-   }
+   }//停止循环后的第一种情况
 
 #ifdef POK_NEEDS_DEBUG
     if ( res!= IDLE_THREAD)
@@ -501,6 +502,47 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
    }
    return res;
 }
+
+//self-adding part begins
+uint32_t pok_sched_part_weighted_rr (const uint32_t index_low, const uint32_t index_high,const uint32_t prev_thread,const uint32_t current_thread)
+{
+   uint32_t res;
+   uint32_t from;
+
+   if (current_thread == IDLE_THREAD)
+   {
+      res = prev_thread;
+   }
+   else
+   {
+      res = current_thread;
+   }
+
+   from = res;
+
+   if ((pok_threads[current_thread].remaining_time_capacity > 0) && (pok_threads[current_thread].state == POK_STATE_RUNNABLE))
+   {
+      return current_thread;
+   }
+
+   do
+   {
+      res++;
+      if (res > index_high)
+      {
+         res = index_low;
+      }
+   }
+   while ((res != from) && (pok_threads[res].state != POK_STATE_RUNNABLE));
+
+   if ((res == from) && (pok_threads[res].state != POK_STATE_RUNNABLE))
+   {
+      res = IDLE_THREAD;
+   }
+   return res;
+}
+
+
 
 
 #if defined (POK_NEEDS_LOCKOBJECTS) || defined (POK_NEEDS_PORTS_QUEUEING) || defined (POK_NEEDS_PORTS_SAMPLING)

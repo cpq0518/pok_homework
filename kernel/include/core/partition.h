@@ -126,7 +126,7 @@ extern pok_partition_t pok_partitions[POK_CONFIG_NB_PARTITIONS];
  * With that, you can do POK_CURRENT_PARTITION.nthreads of POK_CURRENT_PARTITION.mode
  * It avoids tedious syntax like pok_partitions[my_partition].blablabla
  */
-#define POK_CURRENT_PARTITION pok_partitions[POK_SCHED_CURRENT_PARTITION]
+#define POK_CURRENT_PARTITION pok_partitions[POK_SCHED_CURRENT_PARTITION]//对当前分区的简写
 
 /**
  * Check that [ \a ptr ; \a ptr + \a size [ is located in the address

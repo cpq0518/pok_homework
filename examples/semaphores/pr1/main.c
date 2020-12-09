@@ -30,7 +30,7 @@ int main ()
   pok_ret_t ret;
   pok_thread_attr_t     tattr;
 
-  ret = pok_sem_create(&sid , 0, 50, POK_SEMAPHORE_DISCIPLINE_FIFO);
+  ret = pok_sem_create(&sid , 0, 50, POK_SEMAPHORE_DISCIPLINE_FIFO);//这也是一个thread,表示创建一个线程
   printf("[P1] pok_sem_create return=%d, mid=%d\n", ret, sid);
 
   tattr.priority = 42;

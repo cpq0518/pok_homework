@@ -66,6 +66,26 @@ void pok_partition_setup_scheduler (const uint8_t pid)
             break;
 #endif
 
+//self-adding part begins
+#ifdef POK_NEEDS_SCHED_PREEMPTIVE_PRIORITY
+         case POK_SCHED_PREEMPTIVE_PRIORITY:
+            pok_partitions[pid].sched_func  = &pok_sched_part_preemptive_priority;
+            break;
+#endif
+
+#ifdef POK_NEEDS_SCHED_PREEMPTIVE_EDF
+         case POK_SCHED_PREEMPTIVE_EDF:
+            pok_partitions[pid].sched_func  = &pok_sched_part_preemptive_edf;
+            break;
+#endif
+
+#ifdef POK_NEEDS_SCHED_WEIGHTED_RR
+         case POK_SCHED_WEIGHTED_RR:
+            pok_partitions[pid].sched_func  = &pok_sched_part_weighted_rr;
+            break;
+#endif
+//self-adding part ends
+
             /*
              * Default scheduling algorithm is Round Robin.
              * Yes, it sucks
@@ -446,7 +466,7 @@ pok_ret_t pok_current_partition_get_start_condition (pok_start_condition_t *star
  * that it corresponds to a number which bounds are
  * 0 .. number of tasks inside the partition.
  */
-pok_ret_t pok_partition_stop_thread (const uint32_t tid)
+pok_ret_t pok_partition_stop_thread (const uint32_t tid)//tid的取值是[0,一个分区内的线程数]？
 {
    uint32_t id;
    if (POK_SCHED_CURRENT_THREAD != POK_CURRENT_PARTITION.thread_error)

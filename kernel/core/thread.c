@@ -68,6 +68,120 @@ void pok_thread_insert_sort(uint16_t index_low, uint16_t index_high)
 #endif
 
 
+
+#ifdef POK_NEEDS_SCHED_WEIGHTED_RR
+/**
+ * This part is dedicated to the Weighted RR scheduling algorithm.
+ */
+uint64_t gcd_of_two_weights(uint64_t weight1, uint64_t weight2)
+{
+   uint64_t result=weight2;
+   while(weight1%weight2!=0){
+      result=weight1%weight2;
+      weight1=weight2;
+      weight2=result;
+   }
+   return result;
+}
+
+uint64_t gcd_of_array_weights(uint64_t *array_weights)
+{
+   uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
+   uint64_t i, result;
+   result=array_weights[0];
+
+   for (i=1;i<a;i++){
+      result=gcd_of_two_weights(result,array_weights[i]);
+   }
+
+   return result;
+}
+
+uint64_t max_of_array_weights(uint64_t *array_weights)
+{
+   uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
+   uint64_t i, result;
+   result=array_weights[0];
+
+   for (i=1;i<a;i++){
+      if(result<array_weights[i]){
+         result=array_weights[i];
+      }
+   }
+
+   return result;
+}
+
+uint64_t sum_of_array_weights(uint64_t *array_weights)
+{
+   uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
+   uint64_t i, sum;
+   sum=0;
+
+   for (i=0;i<a;i++){
+      sum+=array_weights[i];
+   }
+
+   return sum;
+}
+
+/*This function replaces % to prevent overflow.*/
+uint64_t get_mod(uint64_t a, uint64_t b)
+{
+   uint64_t mod;
+   mod=a-(uint64_t)(a/b)*b;
+   return mod;
+}
+
+void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t index_high,uint64_t *array_weights)
+{
+   uint64_t n=sizeof(array_weights) / sizeof(array_weights[0]);
+   uint64_t sum=sum_of_array_weights(array_weights);
+   uint64_t max=max_of_array_weights(array_weights);
+   uint64_t gcd=gcd_of_array_weights(array_weights);
+   
+   uint64_t i,k,cw;
+
+   i=-1+index_low;//排序时要不要加上index_low????
+   cw=0;
+
+   for(k=0;k<sum;k++){
+      while(1){
+         i=get_mod((i+1),n);
+         if(i==0){
+            cw=cw-gcd;
+            if(cw<=0){
+               cw=max;
+               if(cw==0){
+                  return;
+               }
+            }
+         }
+         if(pok_threads[i].weight>=cw){
+            pok_threads
+         }
+      }
+   }
+
+
+    /*int32_t i=index_high,j=0;
+    pok_thread_t val;
+
+    val=pok_threads[i];
+    j=i-1;
+    while ( j>= index_low && pok_threads[j].period > val.period)
+    {
+        pok_threads[j+1] = pok_threads[j];
+        j--;
+    }
+    pok_threads[j+1]=val;*/
+}
+
+
+
+#endif
+
+
 /**
  * Initialize threads array, put their default values
  * and so on
@@ -84,11 +198,11 @@ void pok_thread_init(void)
 
    for (j = 0 ; j < POK_CONFIG_NB_PARTITIONS ; j++)
    {
-      total_threads = total_threads + pok_partitions[j].nthreads;
+      total_threads = total_threads + pok_partitions[j].nthreads;//计算每个分区中的总线程数
    }
 
 #if defined (POK_NEEDS_DEBUG) || defined (POK_NEEDS_ERROR_HANDLING)
-   if (total_threads != (POK_CONFIG_NB_THREADS - 2))
+   if (total_threads != (POK_CONFIG_NB_THREADS - 2))//等于才是正确的情况
    {
 #ifdef POK_NEEDS_DEBUG
       printf ("Error in configuration, bad number of threads\n");
@@ -99,12 +213,13 @@ void pok_thread_init(void)
    }
 #endif
 #endif
-
-   pok_threads[KERNEL_THREAD].priority	   = pok_sched_get_priority_min(0);
+   //KERNEL_THREAD的下标是所有index的倒数第二位，排在应用threads后面一位
+   pok_threads[KERNEL_THREAD].priority	   = pok_sched_get_priority_min(0);//return 0
    pok_threads[KERNEL_THREAD].base_priority	   = pok_sched_get_priority_min(0);
    pok_threads[KERNEL_THREAD].state		   = POK_STATE_RUNNABLE;
    pok_threads[KERNEL_THREAD].next_activation = 0;
-
+   
+   //IDLE_THREAD的下标是所有index的最后一位，排在应用threads后面两位
    pok_threads[IDLE_THREAD].period                     = 0;
    pok_threads[IDLE_THREAD].deadline                   = 0;
    pok_threads[IDLE_THREAD].time_capacity              = 0;
@@ -127,6 +242,7 @@ void pok_thread_init(void)
       pok_threads[i].remaining_time_capacity    = 0;
       pok_threads[i].next_activation            = 0;
       pok_threads[i].wakeup_time                = 0;
+      pok_threads[i].weight                     = 0;//self-adding
       pok_threads[i].state                      = POK_STATE_STOPPED;
   }
 }
@@ -165,7 +281,7 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
    pok_partitions[partition_id].thread_index =  pok_partitions[partition_id].thread_index + 1;
 
     if ((attr->priority <= pok_sched_get_priority_max (pok_partitions[partition_id].sched)) && (attr->priority >= pok_sched_get_priority_min (pok_partitions[partition_id].sched)))
-   {
+   {ß
       pok_threads[id].priority      = attr->priority;
       pok_threads[id].base_priority      = attr->priority;
    }
