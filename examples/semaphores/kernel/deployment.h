@@ -39,7 +39,7 @@
                                                                                       //-->分区0再执行10000-->分区1再执行10000
 #define POK_CONFIG_SCHEDULING_MAJOR_FRAME 53000000000//等于上面一行的总和
 #define POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION {0,1,0,1}//设计的分区的执行顺序是0-->1-->0-->1
-#define POK_CONFIG_SCHEDULING_NBSLOTS //一个周期里有四段，对应38行
+#define POK_CONFIG_SCHEDULING_NBSLOTS 4//一个周期里有四段，对应38行
 
 #define POK_NEEDS_THREAD_SUSPEND 1
 #define POK_NEEDS_THREAD_SLEEP 1

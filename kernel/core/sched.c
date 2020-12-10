@@ -95,7 +95,7 @@ void pok_sched_init (void)
 
    total_time = 0;
 
-   for (slot = 0 ; slot < POK_CONFIG_SCHEDULING_NBSLOTS ; slot++)
+   for (slot = 0;slot < POK_CONFIG_SCHEDULING_NBSLOTS;slot++)
    {
       total_time = total_time + pok_sched_slots[slot];
    }

@@ -319,7 +319,7 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
    pok_partitions[partition_id].thread_index =  pok_partitions[partition_id].thread_index + 1;
 
     if ((attr->priority <= pok_sched_get_priority_max (pok_partitions[partition_id].sched)) && (attr->priority >= pok_sched_get_priority_min (pok_partitions[partition_id].sched)))
-   {ß
+   {
       pok_threads[id].priority      = attr->priority;
       pok_threads[id].base_priority      = attr->priority;
    }

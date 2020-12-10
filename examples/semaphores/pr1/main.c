@@ -21,6 +21,7 @@
 #include <core/semaphore.h>
 #include <types.h>
 #include "activity.h"
+#include <stdio.h>
 
 uint8_t sid;
 
