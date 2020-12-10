@@ -90,7 +90,7 @@ void pok_thread_preemptive_priority_sort(uint16_t index_low, uint16_t index_high
 }
 #endif
 
-#ifdef POK_NEEDS_SCHED_PREEMPTIVE_PRIORITY
+#ifdef POK_NEEDS_SCHED_PREEMPTIVE_EDF
 
 /**
  * This part of the code sort the threads according to their
@@ -373,6 +373,20 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
    if ((pok_partitions[partition_id].sched == POK_SCHED_RMS) && (id > pok_partitions[partition_id].thread_index_low))
    {
       pok_thread_insert_sort(pok_partitions[partition_id].thread_index_low+1,id);
+   }
+#endif
+
+#ifdef POK_NEEDS_SCHED_PREEMPTIVE_PRIORITY
+   if ((pok_partitions[partition_id].sched == POK_SCHED_PREEMPTIVE_PRIORITY) && (id > pok_partitions[partition_id].thread_index_low))
+   {
+      pok_thread_preemptive_priority_sort(pok_partitions[partition_id].thread_index_low+1,id);
+   }
+#endif
+
+#ifdef POK_NEEDS_SCHED_PREEMPTIVE_EDF
+   if ((pok_partitions[partition_id].sched == POK_SCHED_PREEMPTIVE_EDF) && (id > pok_partitions[partition_id].thread_index_low))
+   {
+      pok_thread_preemptive_edf_sort(pok_partitions[partition_id].thread_index_low+1,id);
    }
 #endif
 

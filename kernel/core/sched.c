@@ -423,8 +423,7 @@ uint32_t pok_sched_part_rms (const uint32_t index_low, const uint32_t index_high
       }
    }
    while ((res != index_low) &&
-	  (pok_threads[res].state != POK_STATE_RUNNABLE));/*循环体为空，只判断不进行任何计算
-      分号表示结束循环体: when res=index_low or state=RUNNABLE时结束循环*/              
+	  (pok_threads[res].state != POK_STATE_RUNNABLE));          
 
    if ((res == index_low) && (pok_threads[res].state != POK_STATE_RUNNABLE))
    {
