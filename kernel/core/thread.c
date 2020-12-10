@@ -68,6 +68,52 @@ void pok_thread_insert_sort(uint16_t index_low, uint16_t index_high)
 #endif
 
 
+#ifdef POK_NEEDS_SCHED_PREEMPTIVE_PRIORITY
+
+/**
+ * This part of the code sort the threads according to their
+ * prioritys. This part is dedicated to the preemptive priority scheduling algorithm.
+ */
+void pok_thread_preemptive_priority_sort(uint16_t index_low, uint16_t index_high)
+{
+    uint32_t i=index_high,j=0;
+    pok_thread_t val;
+
+    val=pok_threads[i];
+    j=i-1;
+    while ( j>= index_low && pok_threads[j].priority > val.priority)
+    {
+        pok_threads[j+1] = pok_threads[j];
+        j--;
+    }
+    pok_threads[j+1]=val;
+}
+#endif
+
+#ifdef POK_NEEDS_SCHED_PREEMPTIVE_PRIORITY
+
+/**
+ * This part of the code sort the threads according to their
+ * ddls. This part is dedicated to the preemptive edf scheduling algorithm.
+ */
+void pok_thread_preemptive_edf_sort(uint16_t index_low, uint16_t index_high)
+{
+    uint32_t i=index_high,j=0;
+    pok_thread_t val;
+
+    val=pok_threads[i];
+    j=i-1;
+    while ( j>= index_low && pok_threads[j].deadline > val.deadline)
+    {
+        pok_threads[j+1] = pok_threads[j];
+        j--;
+    }
+    pok_threads[j+1]=val;
+}
+#endif
+
+
+
 
 #ifdef POK_NEEDS_SCHED_WEIGHTED_RR
 /**
@@ -133,9 +179,30 @@ uint64_t get_mod(uint64_t a, uint64_t b)
    return mod;
 }
 
-void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t index_high,uint64_t *array_weights)
+
+unit64_t pok_thread_determine_wrr(pok_thread_t *array_threads, uint64_t max, uint64_t gcd, uint64_t *i, uint64_t *cw, uint64_t n)
 {
-   uint64_t n=sizeof(array_weights) / sizeof(array_weights[0]);
+   while(1){
+      *i=get_mode((*i+1),n);
+      if(*i==0){
+         *cw=*cw-gcd;
+         if(*cw<=0){
+            *cw=max;
+            if(*cw==0){
+               printf("Error in getting current wright!\n");
+               return 0;
+            }
+         }
+      }
+      if(array_threads[*i].weight>=*cw){
+         return *i;
+      }
+   }
+}
+
+
+void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t index_high, uint16_t n, uint64_t *array_weights, pok_thread_t *array_threads)
+{
    uint64_t sum=sum_of_array_weights(array_weights);
    uint64_t max=max_of_array_weights(array_weights);
    uint64_t gcd=gcd_of_array_weights(array_weights);
@@ -146,38 +213,9 @@ void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t index_high,uint64_
    cw=0;
 
    for(k=0;k<sum;k++){
-      while(1){
-         i=get_mod((i+1),n);
-         if(i==0){
-            cw=cw-gcd;
-            if(cw<=0){
-               cw=max;
-               if(cw==0){
-                  return;
-               }
-            }
-         }
-         if(pok_threads[i].weight>=cw){
-            pok_threads
-         }
-      }
+      pok_thread_determine_wrr(array_threads,max,gcd,&i,&cw,n);
    }
-
-
-    /*int32_t i=index_high,j=0;
-    pok_thread_t val;
-
-    val=pok_threads[i];
-    j=i-1;
-    while ( j>= index_low && pok_threads[j].period > val.period)
-    {
-        pok_threads[j+1] = pok_threads[j];
-        j--;
-    }
-    pok_threads[j+1]=val;*/
 }
-
-
 
 #endif
 
@@ -329,12 +367,27 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
    pok_threads[id].partition        = partition_id; 
    pok_threads[id].entry            = attr->entry;
    pok_threads[id].init_stack_addr  = stack_vaddr;
-   *thread_id = id;
+   *thread_id = id;// thread_id由原来的relative to partition变成整个数组（多个分区)里的Index
 
 #ifdef POK_NEEDS_SCHED_RMS
    if ((pok_partitions[partition_id].sched == POK_SCHED_RMS) && (id > pok_partitions[partition_id].thread_index_low))
    {
       pok_thread_insert_sort(pok_partitions[partition_id].thread_index_low+1,id);
+   }
+#endif
+
+#ifdef POK_NEEDS_SCHED_WEIGHTED_RR
+   if ((pok_partitions[partition_id].sched == POK_SCHED_WEIGHTED_RR) && (id > pok_partitions[partition_id].thread_index_low))
+   {//现在写的是一整个sequence的排序，是否要写加入一个新的thread时的动态变化？
+      uint64_t *array_weights;
+      array_weights=(uint64_t*)calloc(pok_partitions[partition_id].nthreads,sizeof(uint64_t));
+      for(uint32_t i=0;i<pok_partitions[partition_id].nthreads;i++){
+         array_weights[i]=pok_threads[pok_partitions[partition_id].thread_index_low+i].weight;
+      }  
+      pok_thread_weighted_rr_sort(pok_partitions[partition_id].thread_index_low,pok_partitions[partition_id].thread_index_high,
+      pok_partitions[partition_id].nthreads,array_weights,pok_threads);
+      //void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t index_high, uint16_t n, uint64_t *array_weights, pok_thread_t *array_threads)    
+      //pok_thread_insert_sort(pok_partitions[partition_id].thread_index_low+1,id);
    }
 #endif
 
