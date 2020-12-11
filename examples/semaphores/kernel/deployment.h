@@ -28,7 +28,7 @@
 #define POK_NEEDS_CONSOLE      1
 #define POK_NEEDS_LOCKOBJECTS  1
 
-#define POK_CONFIG_NB_THREADS       7//等于总共的threads数量(46行的3+2)再加2(一个main一个idle)
+#define POK_CONFIG_NB_THREADS       8//等于总共的threads数量(46行的3+2)再加2(一个main一个idle)
 #define POK_CONFIG_NB_LOCKOBJECTS       1
 #define POK_CONFIG_NB_PARTITIONS    2//总共定义了两个分区
 
@@ -44,7 +44,7 @@
 #define POK_NEEDS_THREAD_SUSPEND 1
 #define POK_NEEDS_THREAD_SLEEP 1
 
-#define POK_CONFIG_PARTITIONS_NTHREADS  {3,2}//分区0里3个线程，分区1里2个线程
+#define POK_CONFIG_PARTITIONS_NTHREADS  {3,3}//分区0里3个线程，分区1里2个线程
 #define POK_CONFIG_PARTITIONS_NLOCKOBJECTS  {1,0}
 
 #define POK_CONGIF_PARTITIONS_SCHEDULER {POK_SCHED_RR, POK_SCHED_RR}

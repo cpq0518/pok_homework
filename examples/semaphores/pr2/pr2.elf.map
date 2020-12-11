@@ -1,0 +1,298 @@
+由于文件 (符号) 而包含了归档成员
+
+/home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+                              main.o (pok_do_syscall)
+/home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+                              main.o (pok_thread_create)
+/home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+                              main.o (printf)
+
+Merging program properties
+
+
+分配公共符号
+公共符号            大小              文件
+
+pok_allocator_memspace
+                    0x8000            /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+errno               0x4               /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+pok_allocator_spaces
+                    0x4b0             /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+
+舍弃的输入节
+
+ .group         0x0000000000000000        0x8 main.o
+ .group         0x0000000000000000        0x8 activity.o
+ .text.__x86.get_pc_thunk.bx
+                0x0000000000000000        0x4 activity.o
+ .note.gnu.property
+                0x0000000000000000       0x1c activity.o
+ .note.gnu.property
+                0x0000000000000000       0x1c /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .group         0x0000000000000000        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .group         0x0000000000000000        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .group         0x0000000000000000        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .note.gnu.property
+                0x0000000000000000       0x1c /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .text.__x86.get_pc_thunk.bx
+                0x0000000000000000        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .group         0x0000000000000000        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+ .group         0x0000000000000000        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+ .group         0x0000000000000000        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+ .group         0x0000000000000000        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+ .note.gnu.property
+                0x0000000000000000       0x1c /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+ .text.__x86.get_pc_thunk.bx
+                0x0000000000000000        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+ .text.__x86.get_pc_thunk.bp
+                0x0000000000000000        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+内存配置
+
+名称           来源             长度             属性
+*default*        0x0000000000000000 0xffffffffffffffff
+
+链结器命令稿和内存映射
+
+                0x0000000000000000                . = 0x0
+                0x0000000000000000                __partition_begin = .
+
+.text           0x0000000000000000     0x1467
+ *(.text)
+ .text          0x0000000000000000      0x100 main.o
+                0x0000000000000000                main
+ .text          0x0000000000000100       0x6e activity.o
+                0x0000000000000100                pinger_job
+                0x0000000000000137                pinger_job2
+ .text          0x000000000000016e       0x1c /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+                0x000000000000016e                pok_arch_idle
+                0x0000000000000175                pok_do_syscall
+ .text          0x000000000000018a      0x932 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+                0x000000000000018a                pok_allocator_print_spaces
+                0x00000000000001fa                pok_allocator_allocate
+                0x00000000000003dd                pok_allocator_delete_space
+                0x0000000000000441                pok_allocator_merge_space
+                0x000000000000052a                pok_allocator_free
+                0x0000000000000623                pok_time_gettick
+                0x0000000000000677                pok_time_get
+                0x000000000000068b                __pok_partition_start
+                0x00000000000006ad                pok_sem_create
+                0x0000000000000732                pok_sem_signal
+                0x000000000000079d                pok_sem_status
+                0x00000000000007a7                pok_sem_wait
+                0x0000000000000822                pok_thread_create
+                0x0000000000000876                pok_thread_attr_init
+                0x00000000000008c4                pok_thread_period
+                0x0000000000000918                pok_thread_sleep
+                0x000000000000096c                pok_thread_status
+                0x00000000000009c0                pok_thread_delayed_start
+                0x0000000000000a14                pok_thread_set_priority
+                0x0000000000000a68                pok_thread_resume
+ .text          0x0000000000000abc      0x9ab /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+                0x0000000000000dd7                vprintf
+                0x0000000000000f3d                printf
+                0x0000000000000f59                itoa
+                0x000000000000101e                atoi
+                0x0000000000001065                memcpy
+                0x0000000000001095                memset
+                0x00000000000010bd                memcmp
+                0x0000000000001106                strcmp
+                0x000000000000114c                strncmp
+                0x00000000000011ab                strcpy
+                0x00000000000011e1                strncpy
+                0x0000000000001215                streq
+                0x00000000000012ad                strlen
+                0x00000000000012cf                __udivdi3
+                0x0000000000001396                __umoddi3
+                0x00000000000013c3                rand
+                0x00000000000013fe                free
+                0x000000000000141f                malloc
+                0x0000000000001440                calloc
+
+.text.__x86.get_pc_thunk.bx
+                0x0000000000001467        0x4
+ .text.__x86.get_pc_thunk.bx
+                0x0000000000001467        0x4 main.o
+                0x0000000000001467                __x86.get_pc_thunk.bx
+
+.iplt           0x000000000000146b        0x0
+ .iplt          0x000000000000146b        0x0 main.o
+
+.text.__x86.get_pc_thunk.si
+                0x000000000000146b        0x4
+ .text.__x86.get_pc_thunk.si
+                0x000000000000146b        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+                0x000000000000146b                __x86.get_pc_thunk.si
+
+.text.__x86.get_pc_thunk.bp
+                0x000000000000146f        0x4
+ .text.__x86.get_pc_thunk.bp
+                0x000000000000146f        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+                0x000000000000146f                __x86.get_pc_thunk.bp
+
+.text.__x86.get_pc_thunk.ax
+                0x0000000000001473        0x4
+ .text.__x86.get_pc_thunk.ax
+                0x0000000000001473        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+                0x0000000000001473                __x86.get_pc_thunk.ax
+
+.text.__x86.get_pc_thunk.di
+                0x0000000000001477        0x4
+ .text.__x86.get_pc_thunk.di
+                0x0000000000001477        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+                0x0000000000001477                __x86.get_pc_thunk.di
+
+.rodata         0x000000000000147c       0x11
+ *(.rodata)
+ .rodata        0x000000000000147c       0x11 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.rodata.str1.4  0x0000000000001490      0x273
+ .rodata.str1.4
+                0x0000000000001490       0x47 main.o
+ *fill*         0x00000000000014d7        0x1 
+ .rodata.str1.4
+                0x00000000000014d8      0x22b /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+
+.eh_frame       0x0000000000001704      0x9c8
+ .eh_frame      0x0000000000001704       0x68 main.o
+ .eh_frame      0x000000000000176c       0x60 activity.o
+                                         0x8c (松开之前的大小)
+ .eh_frame      0x00000000000017cc       0x30 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+                                         0x60 (松开之前的大小)
+ .eh_frame      0x00000000000017fc      0x410 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+                                        0x58c (松开之前的大小)
+ .eh_frame      0x0000000000001c0c      0x4c0 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+                                        0x668 (松开之前的大小)
+
+.rodata.str1.1  0x00000000000020cc       0x2a
+ .rodata.str1.1
+                0x00000000000020cc       0x2a activity.o
+
+.note.gnu.property
+                0x00000000000020f8       0x1c
+ .note.gnu.property
+                0x00000000000020f8       0x1c main.o
+
+.rel.dyn        0x0000000000002114        0x0
+ .rel.got       0x0000000000002114        0x0 main.o
+ .rel.iplt      0x0000000000002114        0x0 main.o
+ .rel.text      0x0000000000002114        0x0 main.o
+
+.data           0x0000000000002120     0x8590
+ *(.data)
+ .data          0x0000000000002120        0x0 main.o
+ .data          0x0000000000002120        0x0 activity.o
+ .data          0x0000000000002120        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .data          0x0000000000002120        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .data          0x0000000000002120        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+ *(.bss)
+ .bss           0x0000000000002124        0x0 main.o
+ .bss           0x0000000000002124        0x0 activity.o
+ .bss           0x0000000000002124        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .bss           0x0000000000002124        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+                0x0000000000002124                pok_allocator_initialized
+                0x0000000000002128                pok_allocator_used_spaces
+ *fill*         0x000000000000212c       0x14 
+ .bss           0x0000000000002140       0x84 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+ *(COMMON)
+ *fill*         0x00000000000021c4       0x1c 
+ COMMON         0x00000000000021e0     0x84d0 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+                0x00000000000021e0                pok_allocator_memspace
+                0x000000000000a1e0                errno
+                0x000000000000a200                pok_allocator_spaces
+                0x000000000000a6b0                __partition_end = .
+LOAD main.o
+LOAD activity.o
+LOAD /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a
+LOAD /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok//libpok.a
+OUTPUT(pr2.elf elf32-i386)
+
+.got            0x000000000000a6b0        0x0
+ .got           0x000000000000a6b0        0x0 main.o
+
+.got.plt        0x000000000000a6b0        0xc
+ .got.plt       0x000000000000a6b0        0xc main.o
+                0x000000000000a6b0                _GLOBAL_OFFSET_TABLE_
+
+.igot.plt       0x000000000000a6bc        0x0
+ .igot.plt      0x000000000000a6bc        0x0 main.o
+
+.data.rel.ro.local
+                0x000000000000a6c0       0x6c
+ .data.rel.ro.local
+                0x000000000000a6c0       0x6c /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.debug_info     0x0000000000000000     0x4d32
+ .debug_info    0x0000000000000000      0x33a main.o
+ .debug_info    0x000000000000033a       0xf1 activity.o
+ .debug_info    0x000000000000042b      0x354 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .debug_info    0x000000000000077f     0x2dd6 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .debug_info    0x0000000000003555     0x17dd /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.debug_abbrev   0x0000000000000000     0x1d75
+ .debug_abbrev  0x0000000000000000      0x108 main.o
+ .debug_abbrev  0x0000000000000108       0x8d activity.o
+ .debug_abbrev  0x0000000000000195      0x135 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .debug_abbrev  0x00000000000002ca      0xe2a /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .debug_abbrev  0x00000000000010f4      0xc81 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.debug_loc      0x0000000000000000     0x12fe
+ .debug_loc     0x0000000000000000       0x5a main.o
+ .debug_loc     0x000000000000005a       0x41 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .debug_loc     0x000000000000009b      0x10f /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .debug_loc     0x00000000000001aa     0x1154 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.debug_aranges  0x0000000000000000      0x490
+ .debug_aranges
+                0x0000000000000000       0x20 main.o
+ .debug_aranges
+                0x0000000000000020       0x20 activity.o
+ .debug_aranges
+                0x0000000000000040       0x40 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .debug_aranges
+                0x0000000000000080      0x1f8 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .debug_aranges
+                0x0000000000000278      0x218 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.debug_line     0x0000000000000000     0x2516
+ .debug_line    0x0000000000000000      0x230 main.o
+ .debug_line    0x0000000000000230      0x21c activity.o
+ .debug_line    0x000000000000044c      0x114 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .debug_line    0x0000000000000560      0xf55 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .debug_line    0x00000000000014b5     0x1061 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.debug_str      0x0000000000000000     0x13ed
+ .debug_str     0x0000000000000000      0x692 main.o
+                                        0x6d6 (松开之前的大小)
+ .debug_str     0x0000000000000692       0x33 activity.o
+                                        0x1a0 (松开之前的大小)
+ .debug_str     0x00000000000006c5      0x2fc /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+                                        0x9b9 (松开之前的大小)
+ .debug_str     0x00000000000009c1      0x6da /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+                                       0x7e25 (松开之前的大小)
+ .debug_str     0x000000000000109b      0x352 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+                                       0x1c43 (松开之前的大小)
+
+.comment        0x0000000000000000       0x2a
+ .comment       0x0000000000000000       0x2a main.o
+                                         0x2b (松开之前的大小)
+ .comment       0x000000000000002a       0x2b activity.o
+ .comment       0x000000000000002a       0xac /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .comment       0x000000000000002a      0x60c /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .comment       0x000000000000002a      0x2db /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.note.GNU-stack
+                0x0000000000000000        0x0
+ .note.GNU-stack
+                0x0000000000000000        0x0 main.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 activity.o
+ .note.GNU-stack
+                0x0000000000000000        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(arch.lo)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(core.lo)
+ .note.GNU-stack
+                0x0000000000000000        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
+
+.debug_ranges   0x0000000000000000       0x60
+ .debug_ranges  0x0000000000000000       0x60 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr2/../../..//libpok/libpok.a(libc.lo)
