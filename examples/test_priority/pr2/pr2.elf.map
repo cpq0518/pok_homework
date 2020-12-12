@@ -148,86 +148,86 @@ sid                 0x2               main.o
  *(.rodata)
  .rodata        0x0000000000001568       0x11 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
 
-.rodata.str1.4  0x000000000000157c      0x307
+.rodata.str1.4  0x000000000000157c      0x333
  .rodata.str1.4
                 0x000000000000157c       0x93 main.o
  *fill*         0x000000000000160f        0x1 
  .rodata.str1.4
-                0x0000000000001610       0x46 activity.o
- *fill*         0x0000000000001656        0x2 
+                0x0000000000001610       0x71 activity.o
+ *fill*         0x0000000000001681        0x3 
  .rodata.str1.4
-                0x0000000000001658      0x22b /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
+                0x0000000000001684      0x22b /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
 
-.eh_frame       0x0000000000001884      0xa1c
- .eh_frame      0x0000000000001884       0x68 main.o
- .eh_frame      0x00000000000018ec       0xb4 activity.o
+.eh_frame       0x00000000000018b0      0xa1c
+ .eh_frame      0x00000000000018b0       0x68 main.o
+ .eh_frame      0x0000000000001918       0xb4 activity.o
                                          0xe0 (松开之前的大小)
- .eh_frame      0x00000000000019a0       0x30 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(arch.lo)
+ .eh_frame      0x00000000000019cc       0x30 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(arch.lo)
                                          0x60 (松开之前的大小)
- .eh_frame      0x00000000000019d0      0x410 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
+ .eh_frame      0x00000000000019fc      0x410 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
                                         0x58c (松开之前的大小)
- .eh_frame      0x0000000000001de0      0x4c0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
+ .eh_frame      0x0000000000001e0c      0x4c0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
                                         0x668 (松开之前的大小)
 
-.rodata.str1.1  0x00000000000022a0       0x7c
+.rodata.str1.1  0x00000000000022cc       0x7c
  .rodata.str1.1
-                0x00000000000022a0       0x7c activity.o
+                0x00000000000022cc       0x7c activity.o
 
 .note.gnu.property
-                0x000000000000231c       0x1c
+                0x0000000000002348       0x1c
  .note.gnu.property
-                0x000000000000231c       0x1c main.o
+                0x0000000000002348       0x1c main.o
 
-.rel.dyn        0x0000000000002338        0x0
- .rel.got       0x0000000000002338        0x0 main.o
- .rel.iplt      0x0000000000002338        0x0 main.o
- .rel.text      0x0000000000002338        0x0 main.o
+.rel.dyn        0x0000000000002364        0x0
+ .rel.got       0x0000000000002364        0x0 main.o
+ .rel.iplt      0x0000000000002364        0x0 main.o
+ .rel.text      0x0000000000002364        0x0 main.o
 
-.data           0x0000000000002340     0x8590
+.data           0x0000000000002380     0x8590
  *(.data)
- .data          0x0000000000002340        0x0 main.o
- .data          0x0000000000002340        0x0 activity.o
- .data          0x0000000000002340        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(arch.lo)
- .data          0x0000000000002340        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
- .data          0x0000000000002340        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
+ .data          0x0000000000002380        0x0 main.o
+ .data          0x0000000000002380        0x0 activity.o
+ .data          0x0000000000002380        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(arch.lo)
+ .data          0x0000000000002380        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
+ .data          0x0000000000002380        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
  *(.bss)
- .bss           0x0000000000002344        0x0 main.o
- .bss           0x0000000000002344        0x0 activity.o
- .bss           0x0000000000002344        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(arch.lo)
- .bss           0x0000000000002344        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
-                0x0000000000002344                pok_allocator_initialized
-                0x0000000000002348                pok_allocator_used_spaces
- *fill*         0x000000000000234c       0x14 
- .bss           0x0000000000002360       0x84 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
+ .bss           0x0000000000002384        0x0 main.o
+ .bss           0x0000000000002384        0x0 activity.o
+ .bss           0x0000000000002384        0x0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(arch.lo)
+ .bss           0x0000000000002384        0x8 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
+                0x0000000000002384                pok_allocator_initialized
+                0x0000000000002388                pok_allocator_used_spaces
+ *fill*         0x000000000000238c       0x14 
+ .bss           0x00000000000023a0       0x84 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
  *(COMMON)
- COMMON         0x00000000000023e4        0x2 main.o
-                0x00000000000023e4                sid
- *fill*         0x00000000000023e6       0x1a 
- COMMON         0x0000000000002400     0x84d0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
-                0x0000000000002400                pok_allocator_memspace
-                0x000000000000a400                errno
-                0x000000000000a420                pok_allocator_spaces
-                0x000000000000a8d0                __partition_end = .
+ COMMON         0x0000000000002424        0x2 main.o
+                0x0000000000002424                sid
+ *fill*         0x0000000000002426       0x1a 
+ COMMON         0x0000000000002440     0x84d0 /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(core.lo)
+                0x0000000000002440                pok_allocator_memspace
+                0x000000000000a440                errno
+                0x000000000000a460                pok_allocator_spaces
+                0x000000000000a910                __partition_end = .
 LOAD main.o
 LOAD activity.o
 LOAD /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a
 LOAD /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok//libpok.a
 OUTPUT(pr2.elf elf32-i386)
 
-.got            0x000000000000a8d0        0x0
- .got           0x000000000000a8d0        0x0 main.o
+.got            0x000000000000a910        0x0
+ .got           0x000000000000a910        0x0 main.o
 
-.got.plt        0x000000000000a8d0        0xc
- .got.plt       0x000000000000a8d0        0xc main.o
-                0x000000000000a8d0                _GLOBAL_OFFSET_TABLE_
+.got.plt        0x000000000000a910        0xc
+ .got.plt       0x000000000000a910        0xc main.o
+                0x000000000000a910                _GLOBAL_OFFSET_TABLE_
 
-.igot.plt       0x000000000000a8dc        0x0
- .igot.plt      0x000000000000a8dc        0x0 main.o
+.igot.plt       0x000000000000a91c        0x0
+ .igot.plt      0x000000000000a91c        0x0 main.o
 
 .data.rel.ro.local
-                0x000000000000a8e0       0x6c
+                0x000000000000a920       0x6c
  .data.rel.ro.local
-                0x000000000000a8e0       0x6c /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
+                0x000000000000a920       0x6c /home/cpq/cpq/20Fall/pok_homework/examples/test_priority/pr2/../../..//libpok/libpok.a(libc.lo)
 
 .debug_info     0x0000000000000000     0x4f3b
  .debug_info    0x0000000000000000      0x397 main.o

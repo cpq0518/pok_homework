@@ -147,6 +147,7 @@ void pok_partition_setup_main_thread (const uint8_t pid)
    attr.priority = 1;
    attr.deadline = 0;
    attr.period   = 0;
+   attr.weight   = 1;
    attr.time_capacity = 0;
 
    pok_partition_thread_create (&main_thread, &attr, pid);

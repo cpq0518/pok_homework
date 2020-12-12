@@ -44,7 +44,7 @@ int main ()
   ret = pok_thread_create(&tid , &tattr);
   printf ("[P2] thread create (1) returns=%d\n", ret);
 
-  tattr.priority = 41;
+  tattr.priority = 40;
   tattr.entry = pinger_job2;
 //  tattr.deadline = 3000000000;
 // tattr.period = 5000000000;
@@ -52,7 +52,7 @@ int main ()
   ret = pok_thread_create(&tid2 , &tattr);
   printf ("[P2] thread create (2) returns=%d\n", ret);
 
-  tattr.priority = 40;
+  tattr.priority = 41;
   tattr.entry = pinger_job3;
 //  tattr.deadline = 3000000000;
 // tattr.period = 5000000000;

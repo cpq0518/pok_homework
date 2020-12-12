@@ -85,6 +85,7 @@ typedef struct
 	 void*        entry;            /* entrypoint of the thread  */
 	 uint64_t     period;
 	 uint64_t     deadline;
+	 uint64_t	  weight;//self-adding
 	 uint64_t     time_capacity;
 	 uint32_t     stack_size;
 	 pok_state_t  state;

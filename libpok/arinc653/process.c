@@ -82,6 +82,7 @@ void GET_PROCESS_STATUS (PROCESS_ID_TYPE     process_id,
 	process_status->ATTRIBUTES.DEADLINE = HARD;
 	process_status->CURRENT_PRIORITY = attr.priority;
 	process_status->ATTRIBUTES.PERIOD = attr.period;
+	process_status->ATTRIBUTES.WEIGHT = attr.weight;//self-adding
 	process_status->ATTRIBUTES.TIME_CAPACITY = attr.time_capacity;
 	process_status->ATTRIBUTES.ENTRY_POINT = attr.entry;
 	process_status->ATTRIBUTES.STACK_SIZE = attr.stack_size;
@@ -110,6 +111,7 @@ void CREATE_PROCESS (PROCESS_ATTRIBUTE_TYPE  *attributes,
 	 core_attr.priority        = (uint8_t) attributes->BASE_PRIORITY;
 	 core_attr.entry           = attributes->ENTRY_POINT;
 	 core_attr.period          = attributes->PERIOD;
+	 core_attr.weight          = attributes->WEIGHT;//self-adding
 	 core_attr.deadline        = attributes->DEADLINE;
 	 core_attr.time_capacity   = attributes->TIME_CAPACITY;
 	 core_attr.stack_size      = attributes->STACK_SIZE;

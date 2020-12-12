@@ -26,7 +26,7 @@ void *pinger_job() {
     pok_ret_t ret;
     while (1) {
         printf("P2T1: begin of task1\n");
-        printf("P2T1: I will signal semaphores\n");
+        printf("P2T1: I will signal semaphores11111111\n");
         ret = pok_sem_signal(sid);
         printf("P2T1: pok_sem_signal, ret=%d\n", ret);
         pok_thread_sleep(5000000);
@@ -44,7 +44,7 @@ void *pinger_job3() {
     pok_ret_t ret;
     while (1) {
         printf("P2T3: begin of task3\n");
-        printf("P2T3: I will wait for the semaphores\n");
+        printf("P2T3: I will wait for the semaphores33333333333333333333333333333333333\n");
         ret = pok_sem_wait(sid, 0);
         printf("P2T3: pok_sem_wait, ret=%d\n", ret);
         pok_thread_sleep(1000000);

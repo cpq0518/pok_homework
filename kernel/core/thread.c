@@ -20,7 +20,7 @@
  * \date    2008-2009
  * \brief   Thread management in kernel
  */
-
+//#include <stdlib.h>
 #include <types.h>
 
 #include <arch.h>
@@ -130,26 +130,26 @@ uint64_t gcd_of_two_weights(uint64_t weight1, uint64_t weight2)
    return result;
 }
 
-uint64_t gcd_of_array_weights(uint64_t *array_weights)
+uint64_t gcd_of_array_weights(uint64_t *array_weights, uint16_t n)
 {
-   uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
+   //uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
    uint64_t i, result;
    result=array_weights[0];
 
-   for (i=1;i<a;i++){
+   for (i=1;i<n;i++){
       result=gcd_of_two_weights(result,array_weights[i]);
    }
 
    return result;
 }
 
-uint64_t max_of_array_weights(uint64_t *array_weights)
+uint64_t max_of_array_weights(uint64_t *array_weights, uint16_t n)
 {
-   uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
+   //uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
    uint64_t i, result;
    result=array_weights[0];
 
-   for (i=1;i<a;i++){
+   for (i=1;i<n;i++){
       if(result<array_weights[i]){
          result=array_weights[i];
       }
@@ -158,13 +158,13 @@ uint64_t max_of_array_weights(uint64_t *array_weights)
    return result;
 }
 
-uint64_t sum_of_array_weights(uint64_t *array_weights)
+uint64_t sum_of_array_weights(uint64_t *array_weights, uint16_t n)
 {
-   uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
+   //uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
    uint64_t i, sum;
    sum=0;
 
-   for (i=0;i<a;i++){
+   for (i=0;i<n;i++){
       sum+=array_weights[i];
    }
 
@@ -180,16 +180,16 @@ uint64_t get_mod(uint64_t a, uint64_t b)
 }
 
 
-unit64_t pok_thread_determine_wrr(pok_thread_t *array_threads, uint64_t max, uint64_t gcd, uint64_t *i, uint64_t *cw, uint64_t n)
+uint64_t pok_thread_determine_wrr(pok_thread_t *array_threads, uint64_t max, uint64_t gcd, uint64_t *i, uint64_t *cw, uint64_t n)
 {
    while(1){
-      *i=get_mode((*i+1),n);
+      *i=get_mod((*i+1),n);
       if(*i==0){
          *cw=*cw-gcd;
          if(*cw<=0){
             *cw=max;
             if(*cw==0){
-               printf("Error in getting current wright!\n");
+               printf("Error in getting current weight!\n");
                return 0;
             }
          }
@@ -201,11 +201,11 @@ unit64_t pok_thread_determine_wrr(pok_thread_t *array_threads, uint64_t max, uin
 }
 
 
-void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t index_high, uint16_t n, uint64_t *array_weights, pok_thread_t *array_threads)
+void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t n, uint64_t *array_weights, pok_thread_t *array_threads)
 {
-   uint64_t sum=sum_of_array_weights(array_weights);
-   uint64_t max=max_of_array_weights(array_weights);
-   uint64_t gcd=gcd_of_array_weights(array_weights);
+   uint64_t sum=sum_of_array_weights(array_weights,n);
+   uint64_t max=max_of_array_weights(array_weights,n);
+   uint64_t gcd=gcd_of_array_weights(array_weights,n);
    
    uint64_t i,k,cw;
 
@@ -260,6 +260,7 @@ void pok_thread_init(void)
    //IDLE_THREAD的下标是所有index的最后一位，排在应用threads后面两位
    pok_threads[IDLE_THREAD].period                     = 0;
    pok_threads[IDLE_THREAD].deadline                   = 0;
+   pok_threads[IDLE_THREAD].weight                     = 1;//self-adding
    pok_threads[IDLE_THREAD].time_capacity              = 0;
    pok_threads[IDLE_THREAD].next_activation            = 0;
    pok_threads[IDLE_THREAD].remaining_time_capacity    = 0;
@@ -335,6 +336,11 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
       pok_threads[id].deadline      = attr->deadline;
    }
 
+   if (attr->weight > 0)
+   {
+      pok_threads[id].weight      = attr->weight;
+   }
+
 #ifdef POK_NEEDS_SCHED_HFPPS
    pok_threads[id].payback = 0;
 #endif /* POK_NEEDS_SCHED_HFPPS */
@@ -393,13 +399,24 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
 #ifdef POK_NEEDS_SCHED_WEIGHTED_RR
    if ((pok_partitions[partition_id].sched == POK_SCHED_WEIGHTED_RR) && (id > pok_partitions[partition_id].thread_index_low))
    {//现在写的是一整个sequence的排序，是否要写加入一个新的thread时的动态变化？
-      uint64_t *array_weights;
+      /*uint64_t *array_weights;
       array_weights=(uint64_t*)calloc(pok_partitions[partition_id].nthreads,sizeof(uint64_t));
       for(uint32_t i=0;i<pok_partitions[partition_id].nthreads;i++){
          array_weights[i]=pok_threads[pok_partitions[partition_id].thread_index_low+i].weight;
-      }  
-      pok_thread_weighted_rr_sort(pok_partitions[partition_id].thread_index_low,pok_partitions[partition_id].thread_index_high,
-      pok_partitions[partition_id].nthreads,array_weights,pok_threads);
+      }  */
+      uint64_t array_weights[pok_partitions[partition_id].nthreads];
+      printf("num of threads = %d\n",pok_partitions[partition_id].nthreads);
+      printf("weights:\n");
+      for(uint32_t i=0;i<pok_partitions[partition_id].nthreads;i++){
+         //array_weights[i]=pok_threads[pok_partitions[partition_id].thread_index_low+i].weight;
+         //printf("%d\n",array_weights[i]);
+         //printf("%d\n",pok_threads[pok_partitions[partition_id].thread_index_low+i].weight);
+         array_weights[i]=pok_threads[i].weight;
+         printf("%d\n",pok_threads[i].weight);
+      }
+      printf("\n");
+      pok_thread_weighted_rr_sort(pok_partitions[partition_id].thread_index_low, pok_partitions[partition_id].nthreads,array_weights,pok_threads);
+      printf("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu\n");
       //void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t index_high, uint16_t n, uint64_t *array_weights, pok_thread_t *array_threads)    
       //pok_thread_insert_sort(pok_partitions[partition_id].thread_index_low+1,id);
    }
@@ -541,6 +558,7 @@ pok_ret_t pok_thread_get_status (const uint32_t id, pok_thread_attr_t *attr)
   attr->priority = pok_threads[id].priority;
   attr->entry = pok_threads[id].entry;
   attr->period = pok_threads[id].period;
+  attr->weight = pok_threads[id].weight;//self-adding
   attr->time_capacity = pok_threads[id].time_capacity;
   attr->stack_size = POK_USER_STACK_SIZE;
   return POK_ERRNO_OK;

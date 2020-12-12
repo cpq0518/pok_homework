@@ -545,10 +545,6 @@ uint32_t pok_sched_part_weighted_rr (const uint32_t index_low, const uint32_t in
 uint32_t pok_sched_part_preemptive_priority (const uint32_t index_low, const uint32_t index_high,const uint32_t __attribute__((unused)) prev_thread,const uint32_t __attribute__((unused)) current_thread)
 {
    uint32_t res;
-#ifdef POK_NEEDS_DEBUG
-   uint32_t from;
-   from = prev_thread;
-#endif
 
    res= index_low;
 
@@ -576,10 +572,6 @@ uint32_t pok_sched_part_preemptive_priority (const uint32_t index_low, const uin
 uint32_t pok_sched_part_preemptive_edf (const uint32_t index_low, const uint32_t index_high,const uint32_t __attribute__((unused)) prev_thread,const uint32_t __attribute__((unused)) current_thread)
 {
    uint32_t res;
-#ifdef POK_NEEDS_DEBUG
-   uint32_t from;
-   from = prev_thread;
-#endif
 
    res= index_low;
 

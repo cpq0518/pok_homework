@@ -231,12 +231,12 @@ OUTPUT(pr1.elf elf32-i386)
  .data.rel.ro.local
                 0x000000000000a820       0x6c /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(libc.lo)
 
-.debug_info     0x0000000000000000     0x4fd4
- .debug_info    0x0000000000000000      0x44b main.o
- .debug_info    0x000000000000044b      0x282 activity.o
- .debug_info    0x00000000000006cd      0x354 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(arch.lo)
- .debug_info    0x0000000000000a21     0x2dd6 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(core.lo)
- .debug_info    0x00000000000037f7     0x17dd /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(libc.lo)
+.debug_info     0x0000000000000000     0x5008
+ .debug_info    0x0000000000000000      0x458 main.o
+ .debug_info    0x0000000000000458      0x282 activity.o
+ .debug_info    0x00000000000006da      0x354 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(arch.lo)
+ .debug_info    0x0000000000000a2e     0x2dfd /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(core.lo)
+ .debug_info    0x000000000000382b     0x17dd /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(libc.lo)
 
 .debug_abbrev   0x0000000000000000     0x1de7
  .debug_abbrev  0x0000000000000000      0x11b main.o
@@ -271,16 +271,16 @@ OUTPUT(pr1.elf elf32-i386)
  .debug_line    0x00000000000005e9      0xf55 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(core.lo)
  .debug_line    0x000000000000153e     0x1061 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(libc.lo)
 
-.debug_str      0x0000000000000000     0x13e8
- .debug_str     0x0000000000000000      0x911 main.o
-                                        0x955 (松开之前的大小)
- .debug_str     0x0000000000000911       0x4f activity.o
+.debug_str      0x0000000000000000     0x13ef
+ .debug_str     0x0000000000000000      0x918 main.o
+                                        0x95c (松开之前的大小)
+ .debug_str     0x0000000000000918       0x4f activity.o
                                         0x439 (松开之前的大小)
- .debug_str     0x0000000000000960       0x87 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(arch.lo)
+ .debug_str     0x0000000000000967       0x87 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(arch.lo)
                                         0x9b9 (松开之前的大小)
- .debug_str     0x00000000000009e7      0x6af /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(core.lo)
-                                       0x7e25 (松开之前的大小)
- .debug_str     0x0000000000001096      0x352 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(libc.lo)
+ .debug_str     0x00000000000009ee      0x6af /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(core.lo)
+                                       0x7e3a (松开之前的大小)
+ .debug_str     0x000000000000109d      0x352 /home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pr1/../../..//libpok/libpok.a(libc.lo)
                                        0x1c43 (松开之前的大小)
 
 .comment        0x0000000000000000       0x2a
