@@ -482,6 +482,7 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
 
    if ((pok_threads[current_thread].remaining_time_capacity > 0) && (pok_threads[current_thread].state == POK_STATE_RUNNABLE))
    {
+      //printf("RR!\n");
       return current_thread;
    }
 
@@ -499,6 +500,7 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
    {
       res = IDLE_THREAD;
    }
+   //printf("RR!\n");
    return res;
 }
 
@@ -590,7 +592,7 @@ uint32_t pok_sched_part_preemptive_edf (const uint32_t index_low, const uint32_t
    {
       res = IDLE_THREAD;
    }
-
+   //printf("EDF!\n");
    return res;
 }
 #endif /* POK_NEEDS_SCHED_PREEMPTIVE_EDF */

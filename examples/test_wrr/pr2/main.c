@@ -47,7 +47,7 @@ int main ()
   ret = pok_thread_create(&tid , &tattr);
   printf ("[P2] thread create (1) returns=%d\n", ret);
 
-  /*tattr.priority = 40;
+  tattr.priority = 40;
   tattr.entry = pinger_job2;
   tattr.weight=2;
 //  tattr.deadline = 3000000000;
@@ -63,8 +63,8 @@ int main ()
 // tattr.period = 5000000000;
 // tattr.time_capacity = 2;
   ret = pok_thread_create(&tid3 , &tattr);
-  printf("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n");
-  printf ("[P2] thread create (3) returns=%d\n", ret);*/
+  //printf("zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz\n");
+  printf ("[P2] thread create (3) returns=%d\n", ret);
 
   //printf("HERE IS PARTITION 2!\n");
 
