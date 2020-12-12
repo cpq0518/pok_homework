@@ -206,7 +206,7 @@ uint64_t pok_thread_determine_wrr(uint64_t max, uint32_t gcd, uint32_t *i, uint3
 {
    //*i=*i-(n+1);
    while(1){
-      *i=get_mod((*i+1),n);
+      *i=get_mod((*i+1),n);//fix me: i start from where??
       if(*i==0){
          *cw=*cw-gcd;
          if(*cw<=0){
@@ -235,7 +235,7 @@ void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t n, uint64_t *array
    printf("\n");
    uint32_t i,k,cw;
 
-   i=-1+index_low;//排序时要不要加上index_low???? index_low=4,i=3
+   i=-1+index_low;//排序时要不要加上index_low???? (index_low=4,i=3)
    cw=0;
    printf("i=%d\n",i);
 
@@ -459,6 +459,13 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
          uint64_t array_weights[pok_partitions[partition_id].nthreads-1];
          for(uint32_t i=0;i<pok_partitions[partition_id].nthreads-1;i++){
             array_weights[i]=pok_threads[pok_partitions[partition_id].thread_index_low+i+1].weight;
+            /*
+            why using pok_threads[pok_partitions[partition_id].thread_index_low+i+1 instead of pok_threads[pok_partitions[partition_id].thread_index_low+i? 
+            --- because the one whose index is thread_index_low is the main thread, this main thread is created by ret = pok_sem_create in examples/test_wrr/pr2/main.c
+
+            so in the next few lines, use pok_partitions[partition_id].nthreads-1 to express the number of threads that are truly running 
+
+            */
             printf("%d\n",array_weights[i]);
             printf("\n");
          }
