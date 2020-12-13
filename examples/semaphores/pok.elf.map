@@ -302,7 +302,8 @@ pok_current_partition
  *fill*         0x00000000001064c8       0x18 
  .bss           0x00000000001064e0     0x2048 kernel/kernel.lo
                 0x00000000001064e0                pok_partitions_index
-                0x00000000001064e2                pok_sched_current_slot
+                0x00000000001064e2                flag_wrr
+                0x00000000001064e4                pok_sched_current_slot
                 0x00000000001064e8                pok_tick_counter
                 0x00000000001064f0                pok_print_attr_fn
                 0x00000000001064f4                pok_print_char_fn
@@ -377,22 +378,22 @@ OUTPUT(/home/cpq/cpq/20Fall/pok_homework/examples/semaphores/pok.elf elf32-i386)
  .debug_aranges
                 0x0000000000000650       0x18 sizes.o
 
-.debug_info     0x0000000000000000     0xa750
- .debug_info    0x0000000000000000     0xa6da kernel/kernel.lo
- .debug_info    0x000000000000a6da       0x76 sizes.o
+.debug_info     0x0000000000000000     0xa772
+ .debug_info    0x0000000000000000     0xa6fc kernel/kernel.lo
+ .debug_info    0x000000000000a6fc       0x76 sizes.o
 
-.debug_abbrev   0x0000000000000000     0x2e4d
- .debug_abbrev  0x0000000000000000     0x2dfe kernel/kernel.lo
- .debug_abbrev  0x0000000000002dfe       0x4f sizes.o
+.debug_abbrev   0x0000000000000000     0x2e38
+ .debug_abbrev  0x0000000000000000     0x2de9 kernel/kernel.lo
+ .debug_abbrev  0x0000000000002de9       0x4f sizes.o
 
-.debug_line     0x0000000000000000     0x47d7
- .debug_line    0x0000000000000000     0x474f kernel/kernel.lo
- .debug_line    0x000000000000474f       0x88 sizes.o
+.debug_line     0x0000000000000000     0x47da
+ .debug_line    0x0000000000000000     0x4752 kernel/kernel.lo
+ .debug_line    0x0000000000004752       0x88 sizes.o
 
-.debug_str      0x0000000000000000     0x267f
- .debug_str     0x0000000000000000     0x25b1 kernel/kernel.lo
-                                       0xceed (松开之前的大小)
- .debug_str     0x00000000000025b1       0xce sizes.o
+.debug_str      0x0000000000000000     0x2688
+ .debug_str     0x0000000000000000     0x25ba kernel/kernel.lo
+                                       0xceff (松开之前的大小)
+ .debug_str     0x00000000000025ba       0xce sizes.o
                                         0x143 (松开之前的大小)
 
 .debug_loc      0x0000000000000000     0x23ab

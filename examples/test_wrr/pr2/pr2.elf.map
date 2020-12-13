@@ -58,130 +58,130 @@ sid                 0x2               main.o
                 0x0000000000000000                . = 0x0
                 0x0000000000000000                __partition_begin = .
 
-.text           0x0000000000000000     0x157c
+.text           0x0000000000000000     0x1567
  *(.text)
- .text          0x0000000000000000      0x17f main.o
+ .text          0x0000000000000000      0x16a main.o
                 0x0000000000000000                main
- .text          0x000000000000017f      0x104 activity.o
-                0x000000000000017f                pinger_job
-                0x00000000000001e3                pinger_job2
-                0x000000000000021a                pinger_job3
- .text          0x0000000000000283       0x1c /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(arch.lo)
-                0x0000000000000283                pok_arch_idle
-                0x000000000000028a                pok_do_syscall
- .text          0x000000000000029f      0x932 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
-                0x000000000000029f                pok_allocator_print_spaces
-                0x000000000000030f                pok_allocator_allocate
-                0x00000000000004f2                pok_allocator_delete_space
-                0x0000000000000556                pok_allocator_merge_space
-                0x000000000000063f                pok_allocator_free
-                0x0000000000000738                pok_time_gettick
-                0x000000000000078c                pok_time_get
-                0x00000000000007a0                __pok_partition_start
-                0x00000000000007c2                pok_sem_create
-                0x0000000000000847                pok_sem_signal
-                0x00000000000008b2                pok_sem_status
-                0x00000000000008bc                pok_sem_wait
-                0x0000000000000937                pok_thread_create
-                0x000000000000098b                pok_thread_attr_init
-                0x00000000000009d9                pok_thread_period
-                0x0000000000000a2d                pok_thread_sleep
-                0x0000000000000a81                pok_thread_status
-                0x0000000000000ad5                pok_thread_delayed_start
-                0x0000000000000b29                pok_thread_set_priority
-                0x0000000000000b7d                pok_thread_resume
- .text          0x0000000000000bd1      0x9ab /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
-                0x0000000000000eec                vprintf
-                0x0000000000001052                printf
-                0x000000000000106e                itoa
-                0x0000000000001133                atoi
-                0x000000000000117a                memcpy
-                0x00000000000011aa                memset
-                0x00000000000011d2                memcmp
-                0x000000000000121b                strcmp
-                0x0000000000001261                strncmp
-                0x00000000000012c0                strcpy
-                0x00000000000012f6                strncpy
-                0x000000000000132a                streq
-                0x00000000000013c2                strlen
-                0x00000000000013e4                __udivdi3
-                0x00000000000014ab                __umoddi3
-                0x00000000000014d8                rand
-                0x0000000000001513                free
-                0x0000000000001534                malloc
-                0x0000000000001555                calloc
+ .text          0x000000000000016a      0x104 activity.o
+                0x000000000000016a                pinger_job
+                0x00000000000001ce                pinger_job2
+                0x0000000000000205                pinger_job3
+ .text          0x000000000000026e       0x1c /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(arch.lo)
+                0x000000000000026e                pok_arch_idle
+                0x0000000000000275                pok_do_syscall
+ .text          0x000000000000028a      0x932 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
+                0x000000000000028a                pok_allocator_print_spaces
+                0x00000000000002fa                pok_allocator_allocate
+                0x00000000000004dd                pok_allocator_delete_space
+                0x0000000000000541                pok_allocator_merge_space
+                0x000000000000062a                pok_allocator_free
+                0x0000000000000723                pok_time_gettick
+                0x0000000000000777                pok_time_get
+                0x000000000000078b                __pok_partition_start
+                0x00000000000007ad                pok_sem_create
+                0x0000000000000832                pok_sem_signal
+                0x000000000000089d                pok_sem_status
+                0x00000000000008a7                pok_sem_wait
+                0x0000000000000922                pok_thread_create
+                0x0000000000000976                pok_thread_attr_init
+                0x00000000000009c4                pok_thread_period
+                0x0000000000000a18                pok_thread_sleep
+                0x0000000000000a6c                pok_thread_status
+                0x0000000000000ac0                pok_thread_delayed_start
+                0x0000000000000b14                pok_thread_set_priority
+                0x0000000000000b68                pok_thread_resume
+ .text          0x0000000000000bbc      0x9ab /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
+                0x0000000000000ed7                vprintf
+                0x000000000000103d                printf
+                0x0000000000001059                itoa
+                0x000000000000111e                atoi
+                0x0000000000001165                memcpy
+                0x0000000000001195                memset
+                0x00000000000011bd                memcmp
+                0x0000000000001206                strcmp
+                0x000000000000124c                strncmp
+                0x00000000000012ab                strcpy
+                0x00000000000012e1                strncpy
+                0x0000000000001315                streq
+                0x00000000000013ad                strlen
+                0x00000000000013cf                __udivdi3
+                0x0000000000001496                __umoddi3
+                0x00000000000014c3                rand
+                0x00000000000014fe                free
+                0x000000000000151f                malloc
+                0x0000000000001540                calloc
 
 .text.__x86.get_pc_thunk.bx
-                0x000000000000157c        0x4
+                0x0000000000001567        0x4
  .text.__x86.get_pc_thunk.bx
-                0x000000000000157c        0x4 main.o
-                0x000000000000157c                __x86.get_pc_thunk.bx
+                0x0000000000001567        0x4 main.o
+                0x0000000000001567                __x86.get_pc_thunk.bx
 
-.iplt           0x0000000000001580        0x0
- .iplt          0x0000000000001580        0x0 main.o
+.iplt           0x000000000000156b        0x0
+ .iplt          0x000000000000156b        0x0 main.o
 
 .text.__x86.get_pc_thunk.si
-                0x0000000000001580        0x4
+                0x000000000000156b        0x4
  .text.__x86.get_pc_thunk.si
-                0x0000000000001580        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
-                0x0000000000001580                __x86.get_pc_thunk.si
+                0x000000000000156b        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
+                0x000000000000156b                __x86.get_pc_thunk.si
 
 .text.__x86.get_pc_thunk.bp
-                0x0000000000001584        0x4
+                0x000000000000156f        0x4
  .text.__x86.get_pc_thunk.bp
-                0x0000000000001584        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
-                0x0000000000001584                __x86.get_pc_thunk.bp
+                0x000000000000156f        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
+                0x000000000000156f                __x86.get_pc_thunk.bp
 
 .text.__x86.get_pc_thunk.ax
-                0x0000000000001588        0x4
+                0x0000000000001573        0x4
  .text.__x86.get_pc_thunk.ax
-                0x0000000000001588        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
-                0x0000000000001588                __x86.get_pc_thunk.ax
+                0x0000000000001573        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
+                0x0000000000001573                __x86.get_pc_thunk.ax
 
 .text.__x86.get_pc_thunk.di
-                0x000000000000158c        0x4
+                0x0000000000001577        0x4
  .text.__x86.get_pc_thunk.di
-                0x000000000000158c        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
-                0x000000000000158c                __x86.get_pc_thunk.di
+                0x0000000000001577        0x4 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
+                0x0000000000001577                __x86.get_pc_thunk.di
 
-.rodata         0x0000000000001590       0x11
+.rodata         0x000000000000157c       0x11
  *(.rodata)
- .rodata        0x0000000000001590       0x11 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
+ .rodata        0x000000000000157c       0x11 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
 
-.rodata.str1.4  0x00000000000015a4      0x307
+.rodata.str1.4  0x0000000000001590      0x307
  .rodata.str1.4
-                0x00000000000015a4       0x93 main.o
- *fill*         0x0000000000001637        0x1 
+                0x0000000000001590       0x93 main.o
+ *fill*         0x0000000000001623        0x1 
  .rodata.str1.4
-                0x0000000000001638       0x46 activity.o
- *fill*         0x000000000000167e        0x2 
+                0x0000000000001624       0x46 activity.o
+ *fill*         0x000000000000166a        0x2 
  .rodata.str1.4
-                0x0000000000001680      0x22b /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
+                0x000000000000166c      0x22b /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
 
-.eh_frame       0x00000000000018ac      0xa1c
- .eh_frame      0x00000000000018ac       0x68 main.o
- .eh_frame      0x0000000000001914       0xb4 activity.o
+.eh_frame       0x0000000000001898      0xa1c
+ .eh_frame      0x0000000000001898       0x68 main.o
+ .eh_frame      0x0000000000001900       0xb4 activity.o
                                          0xe0 (松开之前的大小)
- .eh_frame      0x00000000000019c8       0x30 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(arch.lo)
+ .eh_frame      0x00000000000019b4       0x30 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(arch.lo)
                                          0x60 (松开之前的大小)
- .eh_frame      0x00000000000019f8      0x410 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
+ .eh_frame      0x00000000000019e4      0x410 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(core.lo)
                                         0x58c (松开之前的大小)
- .eh_frame      0x0000000000001e08      0x4c0 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
+ .eh_frame      0x0000000000001df4      0x4c0 /home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pr2/../../..//libpok/libpok.a(libc.lo)
                                         0x668 (松开之前的大小)
 
-.rodata.str1.1  0x00000000000022c8       0x7c
+.rodata.str1.1  0x00000000000022b4       0x7c
  .rodata.str1.1
-                0x00000000000022c8       0x7c activity.o
+                0x00000000000022b4       0x7c activity.o
 
 .note.gnu.property
-                0x0000000000002344       0x1c
+                0x0000000000002330       0x1c
  .note.gnu.property
-                0x0000000000002344       0x1c main.o
+                0x0000000000002330       0x1c main.o
 
-.rel.dyn        0x0000000000002360        0x0
- .rel.got       0x0000000000002360        0x0 main.o
- .rel.iplt      0x0000000000002360        0x0 main.o
- .rel.text      0x0000000000002360        0x0 main.o
+.rel.dyn        0x000000000000234c        0x0
+ .rel.got       0x000000000000234c        0x0 main.o
+ .rel.iplt      0x000000000000234c        0x0 main.o
+ .rel.text      0x000000000000234c        0x0 main.o
 
 .data           0x0000000000002360     0x8590
  *(.data)

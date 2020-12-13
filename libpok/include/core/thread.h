@@ -35,7 +35,7 @@ typedef struct
 	 void*        entry;
 	 uint64_t     period;
 	 uint64_t     deadline;
-	 uint64_t     weight;
+	 int     weight;
 	 uint64_t     time_capacity;
 	 uint32_t     stack_size;
 	 uint32_t  state;
