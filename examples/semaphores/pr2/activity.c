@@ -26,12 +26,3 @@ void* pinger_job ()
    }
 }
 
-void* pinger_job2 ()
-{
-   while (1)
-   {
-      printf("P2T2: begin of task\n");
-      pok_thread_sleep (5000000);
-   }
-}
-

@@ -19,13 +19,11 @@
 #include <core/partition.h>
 #include <types.h>
 #include "activity.h"
-#include <stdio.h>
 
 
 int main ()
 {
   uint8_t tid;
-  uint8_t tid2;
   int ret;
   pok_thread_attr_t     tattr;
 
@@ -33,13 +31,7 @@ int main ()
   tattr.entry = pinger_job;
 
   ret = pok_thread_create(&tid , &tattr);
-  printf ("[P2] thread create (1) returns=%d\n", ret);
-
-  tattr.priority = 42;
-  tattr.entry = pinger_job2;
-
-  ret = pok_thread_create(&tid2 , &tattr);
-  printf ("[P2] thread create (2) returns=%d\n", ret);
+  printf ("[P2] thread create returns=%d\n", ret);
 
   pok_partition_set_mode (POK_PARTITION_MODE_NORMAL);
   pok_thread_wait_infinite ();
