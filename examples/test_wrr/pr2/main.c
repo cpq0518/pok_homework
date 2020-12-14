@@ -39,7 +39,7 @@ int main ()
   
   tattr.priority = 42;
   tattr.entry = pinger_job;
-  tattr.weight=1;
+  tattr.weight=6;
 //  tattr.deadline = 4000000000;
 //  tattr.period = 5000000000;
 //  tattr.time_capacity = 2;
