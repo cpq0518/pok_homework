@@ -10,6 +10,7 @@ syscall.o: syscall.c ../..//kernel/include/bsp.h \
  ../..//kernel/include/arch.h ../..//kernel/include/arch/x86/spinlock.h \
  ../..//kernel/include/core/time.h ../..//kernel/include/core/error.h \
  ../..//kernel/include/middleware/port.h
+sched_origin.o: sched_origin.c
 time.o: time.c
 error.o: error.c
 partition.o: partition.c

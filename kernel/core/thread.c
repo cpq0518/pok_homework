@@ -136,9 +136,7 @@ int get_mod(int a, int b)
 int gcd_of_two_weights(int weight1, int weight2)
 {
    int result=weight2;
-   //printf("ENTER gcd of two weights!\n");
    //uint64_t mod_result=get_mod(weight1,weight2);
-   //printf("mod_result=%d\n",mod_result);
    while(get_mod(weight1,weight2)!=0){
       result=get_mod(weight1,weight2);
       weight1=weight2;
@@ -149,14 +147,7 @@ int gcd_of_two_weights(int weight1, int weight2)
 
 int gcd_of_array_weights(int *array_weights, int n)
 {
-   //uint64_t a=sizeof(array_weights) / sizeof(array_weights[0]);
-   /*printf("ENTER gcd!\n");
-   printf("n = %d\n", n);
-   uint64_t i, result;
-   for (i=0;i<n;i++){
-      printf("array_weights[i] = %d\n",array_weights[i]);
-   }*/
-   //printf("ENTER gcd!\n");
+   
    int i, result;
    result=array_weights[0];
    //printf("result before loop = %d\n", result);
@@ -202,23 +193,36 @@ int sum_of_array_weights(int *array_weights, int n)
 
 
 
-int pok_thread_determine_wrr(int max, int gcd, int *i, int *cw, int n)
+int pok_thread_determine_wrr(uint16_t index_low,int max, int gcd, int *i, int *cw, int n)
 {
    //*i=*i-(n+1);
    while(1){
+      
+   
+      //for(int d=0;d<n;d++){
+         //printf("array_weights[%d]=%d\n",d,array_weights[d]);
+      //}
       *i=get_mod((*i+1),n);//fix me: i start from where??
+      //printf("i=%d after get mod\n",*i);
+      //printf("cw=%d after get mod\n",*cw);
       if(*i==0){
          *cw=*cw-gcd;
+         //printf("cw=%d after minus gcd\n",*cw);
          if(*cw<=0){
             *cw=max;
+            //printf("cw=%d after equal max\n",*cw);
             if(*cw==0){
                printf("Error in getting current weight!\n");
                return 0;
             }
          }
       }
-      if(pok_threads[*i].weight>=*cw){
-         return *i;
+      
+      //printf("pok_threads[%d].weight=%d\n",*i+(int)index_low,pok_threads[*i+(int)index_low].weight);
+      if(pok_threads[*i+(int)index_low].weight>=*cw){
+         printf("RETURN = %d        ",*i+(int)index_low);
+         //printf("HAS ENTERED COMPARISON!\n");
+         return *i+(int)index_low;
       }
    }
 }
@@ -229,23 +233,21 @@ void pok_thread_weighted_rr_sort(uint16_t index_low, int n, int *array_weights)
    int sum=sum_of_array_weights(array_weights,n);
    int max=max_of_array_weights(array_weights,n);
    int gcd=gcd_of_array_weights(array_weights,n);
-   printf("sum=%d\n",sum);
-   printf("max=%d\n",max);
-   printf("gcd=%d\n",gcd);
-   printf("\n");
+   //printf("sum=%d\n",sum);
+   //printf("max=%d\n",max);
+   //printf("gcd=%d\n",gcd);
+   //printf("\n");
    int i,k,cw;
-   //int i,k,cw;
    i=-1;
-   //i=-1+index_low;
    //i=-1+index_low;//排序时要不要加上index_low???? (index_low=4,i=3)
    cw=0;
-   printf("i=%d\n",i);
-   printf("index_low=%d\n",index_low);
+   //printf("i=%d\n",i);
+   //printf("index_low=%d\n",index_low);
 
    for(k=0;k<sum;k++){
-      printf("In %dth loop of void pok_thread_rr_sort\n",k+1);
-      pok_thread_determine_wrr(max,gcd,&i,&cw,n);
-      printf("In %dth loop: \n",k+1);
+      //printf("In %dth loop of void pok_thread_rr_sort\n",k+1);
+      pok_thread_determine_wrr(index_low,max,gcd,&i,&cw,n);
+      printf("In %dth loop: pok_thread_determine_wrr ----- COMPLETED!\n",k+1);
    }
 }
 
@@ -432,54 +434,25 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
 #ifdef POK_NEEDS_SCHED_WEIGHTED_RR
    
    if ((pok_partitions[partition_id].sched == POK_SCHED_WEIGHTED_RR) && (id > pok_partitions[partition_id].thread_index_low))
-   {//现在写的是一整个sequence的排序，是否要写加入一个新的thread时的动态变化？
-      /*uint64_t *array_weights;
-      array_weights=(uint64_t*)calloc(pok_partitions[partition_id].nthreads,sizeof(uint64_t));
-      for(uint32_t i=0;i<pok_partitions[partition_id].nthreads;i++){
-         array_weights[i]=pok_threads[pok_partitions[partition_id].thread_index_low+i].weight;
-      }  */
-      /*uint64_t array_weights[pok_partitions[partition_id].nthreads];
-      printf("num of threads = %d\n",pok_partitions[partition_id].nthreads);
-      printf("weights:\n");
-      for(uint32_t i=0;i<pok_partitions[partition_id].nthreads;i++){
-         array_weights[i]=pok_threads[pok_partitions[partition_id].thread_index_low+i].weight;
-         //printf("%d\n",array_weights[i]);
-         printf("%d\n",pok_threads[pok_partitions[partition_id].thread_index_low+i].weight);
-         //array_weights[i]=pok_threads[i].weight;
-         //printf("%d\n",pok_threads[i].weight);
-      }
-      printf("\n");
-      pok_thread_weighted_rr_sort(pok_partitions[partition_id].thread_index_low, pok_partitions[partition_id].nthreads,array_weights,pok_threads);
-      */
-      //void pok_thread_weighted_rr_sort(uint16_t index_low, uint16_t index_high, uint16_t n, uint64_t *array_weights, pok_thread_t *array_threads)    
-      //pok_thread_insert_sort(pok_partitions[partition_id].thread_index_low+1,id);
+   {
       flag_wrr=flag_wrr+1;
       printf("flag = %d\n",flag_wrr);
       //printf("nthreads = %d\n",pok_partitions[partition_id].nthreads);
       if(flag_wrr==pok_partitions[partition_id].nthreads-1){
-         printf("HAS ENTER sorting for POK_NEEDS_SCHED_WEIGHTED_RR\n");
+         //printf("HAS ENTER sorting for POK_NEEDS_SCHED_WEIGHTED_RR\n");
+         //printf("THIS@@: %d\n",pok_partitions[partition_id].thread_index_low+1);//=4
          
          int array_weights[pok_partitions[partition_id].nthreads-1];
          for(int i=0;i<(int)pok_partitions[partition_id].nthreads-1;i++){
             array_weights[i]=pok_threads[pok_partitions[partition_id].thread_index_low+i+1].weight;
-            /*
-            why using pok_threads[pok_partitions[partition_id].thread_index_low+i+1 instead of pok_threads[pok_partitions[partition_id].thread_index_low+i? 
-            --- because the one whose index is thread_index_low is the main thread, this main thread is created by ret = pok_sem_create in examples/test_wrr/pr2/main.c
-
-            so in the next few lines, use pok_partitions[partition_id].nthreads-1 to express the number of threads that are truly running 
-
-            */
+            
             printf("%d\n",array_weights[i]);
          }
 
-         printf("\n pok_threads information:\n");
-         for(int i=0;i<POK_CONFIG_NB_THREADS - 2;i++){
-            printf("pok_threads[%d].weight=%d\n",i,array_weights[i]);
-         }
-         printf("\n");
+
          
-            //fix here
-         printf("PARAMETER 1: pok_partitions[partition_id].thread_index_low +1= %d\n",pok_partitions[partition_id].thread_index_low+1);
+         //printf("PARAMETER 1: pok_partitions[partition_id].thread_index_low + 1 = %d\n",pok_partitions[partition_id].thread_index_low+1);
+         //printf("PARAMETER 2: n = pok_partitions[partition_id].nthreads-1 = %d\n",pok_partitions[partition_id].nthreads-1);
          pok_thread_weighted_rr_sort(pok_partitions[partition_id].thread_index_low+1, pok_partitions[partition_id].nthreads-1,array_weights);
          printf("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu\n");
       }

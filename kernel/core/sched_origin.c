@@ -37,7 +37,6 @@
 #include <middleware/port.h>
 #endif
 
-
 #include <dependencies.h>
 
 #include <core/debug.h>
@@ -469,11 +468,7 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
 {
    uint32_t res;
    uint32_t from;
-   /*printf("HELLO FROM RR\n");
-   printf("index_low = %d\n",index_low);//0
-   printf("index_high = %d\n",index_high);//3
-   printf("prev_thread = %d\n",prev_thread);//2
-   printf("current_thread = %d\n",current_thread);//8*/
+   printf("HELLO FROM RR\n");
    if (current_thread == IDLE_THREAD)
    {
       res = prev_thread;
@@ -512,11 +507,7 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
 //self-adding part begins
 uint32_t pok_sched_part_weighted_rr (const uint32_t index_low, const uint32_t index_high,const uint32_t prev_thread,const uint32_t current_thread)
 {
-   /*printf("HELLO FROM WRR\n");
-   printf("index_low = %d\n",index_low);//3
-   printf("index_high = %d\n",index_high);//7
-   printf("prev_thread = %d\n",prev_thread);//6
-   printf("current_thread = %d\n",current_thread);//8*/
+   printf("HELLO FROM WRR\n");
    uint32_t res;
    uint32_t from;
 
