@@ -56,11 +56,11 @@ pok_current_partition
                 0x0000000000100000                . = 0x100000
                 0x0000000000100000                __pok_begin = .
 
-.text           0x0000000000100000     0x45cb
+.text           0x0000000000100000     0x4608
  *(.multiboot)
  .multiboot     0x0000000000100000       0x14 kernel/kernel.lo
  *(.text)
- .text          0x0000000000100014     0x45b7 kernel/kernel.lo
+ .text          0x0000000000100014     0x45f4 kernel/kernel.lo
                 0x0000000000100014                pok_partition_setup_scheduler
                 0x0000000000100060                pok_partition_setup_main_thread
                 0x00000000001000e5                pok_partition_init
@@ -93,279 +93,279 @@ pok_current_partition
                 0x00000000001010eb                pok_thread_weighted_rr_sort
                 0x00000000001011a4                pok_thread_init
                 0x0000000000101363                pok_partition_thread_create
-                0x0000000000101670                pok_thread_start
-                0x000000000010167f                pok_thread_sleep
-                0x00000000001016be                pok_thread_suspend
-                0x00000000001016e5                pok_thread_delayed_start
-                0x000000000010187f                pok_thread_get_status
-                0x0000000000101911                pok_thread_set_priority
-                0x000000000010196c                pok_thread_resume
-                0x00000000001019da                pok_thread_suspend_target
-                0x0000000000101a3b                pok_sched_init
-                0x0000000000101af0                pok_sched_get_priority_min
-                0x0000000000101afa                pok_sched_get_priority_max
-                0x0000000000101b04                pok_elect_partition
-                0x0000000000101b71                pok_elect_thread
-                0x0000000000101d78                pok_sched_context_switch
-                0x0000000000101de3                pok_sched
-                0x0000000000101e51                pok_sched_part_rr
-                0x0000000000101ed8                pok_sched_part_weighted_rr
-                0x0000000000101f5f                pok_sched_unlock_thread
-                0x0000000000101f81                pok_sched_lock_current_thread
-                0x0000000000101fa5                pok_sched_lock_current_thread_timed
-                0x0000000000101fd7                pok_sched_stop_self
-                0x0000000000102006                pok_sched_stop_thread
-                0x0000000000102028                pok_sched_end_period
-                0x000000000010206a                pok_sched_get_current
-                0x0000000000102098                pok_time_init
-                0x00000000001020c9                pok_core_syscall
-                0x0000000000102703                pok_loader_load_partition
-                0x0000000000102837                pok_boot
-                0x0000000000102883                pok_print_char
-                0x00000000001028b3                pok_print_attr
-                0x00000000001028e3                pok_write
-                0x0000000000102916                pok_print_init
-                0x000000000010293e                memcpy
-                0x0000000000102969                memset
-                0x0000000000102991                __udivdi3
-                0x0000000000102a58                __umoddi3
-                0x0000000000102c70                vprintf
-                0x0000000000102dc3                printf
-                0x0000000000102ddf                strlen
-                0x0000000000102e01                strcmp
-                0x0000000000102e47                strncmp
-                0x0000000000102ea6                pok_cons_attr
-                0x0000000000102ec2                is_transmitter_holding_register
-                0x0000000000102ed3                write_serial
-                0x0000000000102eee                pok_cons_print_char
-                0x000000000010304e                is_received_data_ready
-                0x000000000010305c                read_serial
-                0x0000000000103077                pok_cons_get_char
-                0x0000000000103088                pok_cons_clear
-                0x000000000010310e                pok_cons_write
-                0x000000000010321d                pok_cons_disable_cursor
-                0x0000000000103255                pok_cons_init
-                0x00000000001032f0                core_entry
-                0x00000000001032f0                _core_entry
-                0x000000000010330d                pok_bsp_init
-                0x0000000000103339                pok_bsp_irq_acknowledge
-                0x0000000000103361                pok_bsp_irq_register
-                0x00000000001033a0                pok_bsp_mem_alloc
-                0x00000000001033c1                pok_bsp_time_init
-                0x00000000001033de                pok_pm_init
-                0x000000000010342b                pok_pm_sbrk
-                0x000000000010344a                pok_pic_init
-                0x00000000001034ab                pok_pic_mask
-                0x00000000001034ed                pok_pic_unmask
-                0x000000000010352f                pok_pic_eoi
-                0x000000000010354f                pit_interrupt
-                0x0000000000103574                pit_interrupt_handler
-                0x00000000001035e6                pok_x86_qemu_timer_init
-                0x0000000000103654                pok_arch_init
-                0x000000000010367b                pok_arch_preempt_disable
-                0x0000000000103686                pok_arch_preempt_enable
-                0x0000000000103691                pok_arch_idle
-                0x0000000000103698                pok_arch_event_register
-                0x00000000001036ca                pok_thread_stack_addr
-                0x00000000001036f7                tss_set_esp0
-                0x0000000000103713                gdt_set_segment
-                0x000000000010380a                gdt_set_system
-                0x000000000010389b                pok_tss_init
-                0x00000000001038f0                pok_gdt_init
-                0x0000000000103975                gdt_enable
-                0x0000000000103994                gdt_disable
-                0x00000000001039b3                pok_idt_init
-                0x00000000001039f5                pok_event_init
-                0x0000000000103a21                pok_idt_set_gate
-                0x0000000000103aa5                pok_context_switch
-                0x0000000000103aba                pok_context_create
-                0x0000000000103b1c                pok_context_reset
-                0x0000000000103b78                pok_dispatch_space
-                0x0000000000103c24                pok_create_space
-                0x0000000000103c7b                pok_space_switch
-                0x0000000000103cdc                pok_space_base_vaddr
-                0x0000000000103ce6                pok_space_context_create
-                0x0000000000103d8c                syscall_gate
-                0x0000000000103db5                syscall_gate_handler
-                0x0000000000103e4a                pok_syscall_init
-                0x0000000000103e7a                update_tss
-                0x0000000000103ea1                exception_divide_error
-                0x0000000000103ec6                exception_debug
-                0x0000000000103eeb                exception_nmi
-                0x0000000000103f10                exception_breakpoint
-                0x0000000000103f35                exception_overflow
-                0x0000000000103f5a                exception_boundrange
-                0x0000000000103f7f                exception_invalidopcode
-                0x0000000000103fa4                exception_nomath_coproc
-                0x0000000000103fc9                exception_doublefault
-                0x0000000000103feb                exception_copseg_overrun
-                0x0000000000104010                exception_invalid_tss
-                0x0000000000104032                exception_segment_not_present
-                0x0000000000104054                exception_stackseg_fault
-                0x0000000000104076                exception_general_protection
-                0x0000000000104098                exception_pagefault
-                0x00000000001040ba                exception_fpu_fault
-                0x00000000001040df                exception_alignement_check
-                0x0000000000104101                exception_machine_check
-                0x0000000000104126                exception_simd_fault
-                0x0000000000104204                pok_exception_init
-                0x000000000010424a                exception_divide_error_handler
-                0x000000000010426e                exception_debug_handler
-                0x000000000010429e                exception_nmi_handler
-                0x00000000001042ce                exception_breakpoint_handler
-                0x00000000001042fe                exception_overflow_handler
-                0x000000000010432e                exception_boundrange_handler
-                0x000000000010435e                exception_invalidopcode_handler
-                0x000000000010438e                exception_nomath_coproc_handler
-                0x00000000001043be                exception_doublefault_handler
-                0x00000000001043ee                exception_copseg_overrun_handler
-                0x000000000010441e                exception_invalid_tss_handler
-                0x000000000010444e                exception_segment_not_present_handler
-                0x000000000010447e                exception_stackseg_fault_handler
-                0x00000000001044ae                exception_general_protection_handler
-                0x00000000001044de                exception_pagefault_handler
-                0x000000000010450e                exception_fpu_fault_handler
-                0x000000000010453e                exception_alignement_check_handler
-                0x000000000010456e                exception_machine_check_handler
-                0x000000000010459b                exception_simd_fault_handler
- .text          0x00000000001045cb        0x0 sizes.o
+                0x00000000001016ad                pok_thread_start
+                0x00000000001016bc                pok_thread_sleep
+                0x00000000001016fb                pok_thread_suspend
+                0x0000000000101722                pok_thread_delayed_start
+                0x00000000001018bc                pok_thread_get_status
+                0x000000000010194e                pok_thread_set_priority
+                0x00000000001019a9                pok_thread_resume
+                0x0000000000101a17                pok_thread_suspend_target
+                0x0000000000101a78                pok_sched_init
+                0x0000000000101b2d                pok_sched_get_priority_min
+                0x0000000000101b37                pok_sched_get_priority_max
+                0x0000000000101b41                pok_elect_partition
+                0x0000000000101bae                pok_elect_thread
+                0x0000000000101db5                pok_sched_context_switch
+                0x0000000000101e20                pok_sched
+                0x0000000000101e8e                pok_sched_part_rr
+                0x0000000000101f15                pok_sched_part_weighted_rr
+                0x0000000000101f9c                pok_sched_unlock_thread
+                0x0000000000101fbe                pok_sched_lock_current_thread
+                0x0000000000101fe2                pok_sched_lock_current_thread_timed
+                0x0000000000102014                pok_sched_stop_self
+                0x0000000000102043                pok_sched_stop_thread
+                0x0000000000102065                pok_sched_end_period
+                0x00000000001020a7                pok_sched_get_current
+                0x00000000001020d5                pok_time_init
+                0x0000000000102106                pok_core_syscall
+                0x0000000000102740                pok_loader_load_partition
+                0x0000000000102874                pok_boot
+                0x00000000001028c0                pok_print_char
+                0x00000000001028f0                pok_print_attr
+                0x0000000000102920                pok_write
+                0x0000000000102953                pok_print_init
+                0x000000000010297b                memcpy
+                0x00000000001029a6                memset
+                0x00000000001029ce                __udivdi3
+                0x0000000000102a95                __umoddi3
+                0x0000000000102cad                vprintf
+                0x0000000000102e00                printf
+                0x0000000000102e1c                strlen
+                0x0000000000102e3e                strcmp
+                0x0000000000102e84                strncmp
+                0x0000000000102ee3                pok_cons_attr
+                0x0000000000102eff                is_transmitter_holding_register
+                0x0000000000102f10                write_serial
+                0x0000000000102f2b                pok_cons_print_char
+                0x000000000010308b                is_received_data_ready
+                0x0000000000103099                read_serial
+                0x00000000001030b4                pok_cons_get_char
+                0x00000000001030c5                pok_cons_clear
+                0x000000000010314b                pok_cons_write
+                0x000000000010325a                pok_cons_disable_cursor
+                0x0000000000103292                pok_cons_init
+                0x000000000010332d                core_entry
+                0x000000000010332d                _core_entry
+                0x000000000010334a                pok_bsp_init
+                0x0000000000103376                pok_bsp_irq_acknowledge
+                0x000000000010339e                pok_bsp_irq_register
+                0x00000000001033dd                pok_bsp_mem_alloc
+                0x00000000001033fe                pok_bsp_time_init
+                0x000000000010341b                pok_pm_init
+                0x0000000000103468                pok_pm_sbrk
+                0x0000000000103487                pok_pic_init
+                0x00000000001034e8                pok_pic_mask
+                0x000000000010352a                pok_pic_unmask
+                0x000000000010356c                pok_pic_eoi
+                0x000000000010358c                pit_interrupt
+                0x00000000001035b1                pit_interrupt_handler
+                0x0000000000103623                pok_x86_qemu_timer_init
+                0x0000000000103691                pok_arch_init
+                0x00000000001036b8                pok_arch_preempt_disable
+                0x00000000001036c3                pok_arch_preempt_enable
+                0x00000000001036ce                pok_arch_idle
+                0x00000000001036d5                pok_arch_event_register
+                0x0000000000103707                pok_thread_stack_addr
+                0x0000000000103734                tss_set_esp0
+                0x0000000000103750                gdt_set_segment
+                0x0000000000103847                gdt_set_system
+                0x00000000001038d8                pok_tss_init
+                0x000000000010392d                pok_gdt_init
+                0x00000000001039b2                gdt_enable
+                0x00000000001039d1                gdt_disable
+                0x00000000001039f0                pok_idt_init
+                0x0000000000103a32                pok_event_init
+                0x0000000000103a5e                pok_idt_set_gate
+                0x0000000000103ae2                pok_context_switch
+                0x0000000000103af7                pok_context_create
+                0x0000000000103b59                pok_context_reset
+                0x0000000000103bb5                pok_dispatch_space
+                0x0000000000103c61                pok_create_space
+                0x0000000000103cb8                pok_space_switch
+                0x0000000000103d19                pok_space_base_vaddr
+                0x0000000000103d23                pok_space_context_create
+                0x0000000000103dc9                syscall_gate
+                0x0000000000103df2                syscall_gate_handler
+                0x0000000000103e87                pok_syscall_init
+                0x0000000000103eb7                update_tss
+                0x0000000000103ede                exception_divide_error
+                0x0000000000103f03                exception_debug
+                0x0000000000103f28                exception_nmi
+                0x0000000000103f4d                exception_breakpoint
+                0x0000000000103f72                exception_overflow
+                0x0000000000103f97                exception_boundrange
+                0x0000000000103fbc                exception_invalidopcode
+                0x0000000000103fe1                exception_nomath_coproc
+                0x0000000000104006                exception_doublefault
+                0x0000000000104028                exception_copseg_overrun
+                0x000000000010404d                exception_invalid_tss
+                0x000000000010406f                exception_segment_not_present
+                0x0000000000104091                exception_stackseg_fault
+                0x00000000001040b3                exception_general_protection
+                0x00000000001040d5                exception_pagefault
+                0x00000000001040f7                exception_fpu_fault
+                0x000000000010411c                exception_alignement_check
+                0x000000000010413e                exception_machine_check
+                0x0000000000104163                exception_simd_fault
+                0x0000000000104241                pok_exception_init
+                0x0000000000104287                exception_divide_error_handler
+                0x00000000001042ab                exception_debug_handler
+                0x00000000001042db                exception_nmi_handler
+                0x000000000010430b                exception_breakpoint_handler
+                0x000000000010433b                exception_overflow_handler
+                0x000000000010436b                exception_boundrange_handler
+                0x000000000010439b                exception_invalidopcode_handler
+                0x00000000001043cb                exception_nomath_coproc_handler
+                0x00000000001043fb                exception_doublefault_handler
+                0x000000000010442b                exception_copseg_overrun_handler
+                0x000000000010445b                exception_invalid_tss_handler
+                0x000000000010448b                exception_segment_not_present_handler
+                0x00000000001044bb                exception_stackseg_fault_handler
+                0x00000000001044eb                exception_general_protection_handler
+                0x000000000010451b                exception_pagefault_handler
+                0x000000000010454b                exception_fpu_fault_handler
+                0x000000000010457b                exception_alignement_check_handler
+                0x00000000001045ab                exception_machine_check_handler
+                0x00000000001045d8                exception_simd_fault_handler
+ .text          0x0000000000104608        0x0 sizes.o
 
 .text.__x86.get_pc_thunk.ax
-                0x00000000001045cb        0x4
+                0x0000000000104608        0x4
  .text.__x86.get_pc_thunk.ax
-                0x00000000001045cb        0x4 kernel/kernel.lo
-                0x00000000001045cb                __x86.get_pc_thunk.ax
+                0x0000000000104608        0x4 kernel/kernel.lo
+                0x0000000000104608                __x86.get_pc_thunk.ax
 
 .text.__x86.get_pc_thunk.dx
-                0x00000000001045cf        0x4
+                0x000000000010460c        0x4
  .text.__x86.get_pc_thunk.dx
-                0x00000000001045cf        0x4 kernel/kernel.lo
-                0x00000000001045cf                __x86.get_pc_thunk.dx
+                0x000000000010460c        0x4 kernel/kernel.lo
+                0x000000000010460c                __x86.get_pc_thunk.dx
 
 .text.__x86.get_pc_thunk.bx
-                0x00000000001045d3        0x4
+                0x0000000000104610        0x4
  .text.__x86.get_pc_thunk.bx
-                0x00000000001045d3        0x4 kernel/kernel.lo
-                0x00000000001045d3                __x86.get_pc_thunk.bx
+                0x0000000000104610        0x4 kernel/kernel.lo
+                0x0000000000104610                __x86.get_pc_thunk.bx
 
 .text.__x86.get_pc_thunk.bp
-                0x00000000001045d7        0x4
+                0x0000000000104614        0x4
  .text.__x86.get_pc_thunk.bp
-                0x00000000001045d7        0x4 kernel/kernel.lo
-                0x00000000001045d7                __x86.get_pc_thunk.bp
+                0x0000000000104614        0x4 kernel/kernel.lo
+                0x0000000000104614                __x86.get_pc_thunk.bp
 
 .text.__x86.get_pc_thunk.cx
-                0x00000000001045db        0x4
+                0x0000000000104618        0x4
  .text.__x86.get_pc_thunk.cx
-                0x00000000001045db        0x4 kernel/kernel.lo
-                0x00000000001045db                __x86.get_pc_thunk.cx
+                0x0000000000104618        0x4 kernel/kernel.lo
+                0x0000000000104618                __x86.get_pc_thunk.cx
 
 .text.__x86.get_pc_thunk.di
-                0x00000000001045df        0x4
+                0x000000000010461c        0x4
  .text.__x86.get_pc_thunk.di
-                0x00000000001045df        0x4 kernel/kernel.lo
-                0x00000000001045df                __x86.get_pc_thunk.di
+                0x000000000010461c        0x4 kernel/kernel.lo
+                0x000000000010461c                __x86.get_pc_thunk.di
 
 .text.__x86.get_pc_thunk.si
-                0x00000000001045e3        0x4
+                0x0000000000104620        0x4
  .text.__x86.get_pc_thunk.si
-                0x00000000001045e3        0x4 kernel/kernel.lo
-                0x00000000001045e3                __x86.get_pc_thunk.si
+                0x0000000000104620        0x4 kernel/kernel.lo
+                0x0000000000104620                __x86.get_pc_thunk.si
 
-.iplt           0x00000000001045e7        0x0
- .iplt          0x00000000001045e7        0x0 kernel/kernel.lo
+.iplt           0x0000000000104624        0x0
+ .iplt          0x0000000000104624        0x0 kernel/kernel.lo
 
-.rodata         0x00000000001045e8      0x125
+.rodata         0x0000000000104624      0x125
  *(.rodata)
- .rodata        0x00000000001045e8      0x125 kernel/kernel.lo
+ .rodata        0x0000000000104624      0x125 kernel/kernel.lo
 
-.rodata.str1.1  0x000000000010470d      0x496
+.rodata.str1.1  0x0000000000104749      0x4a8
  .rodata.str1.1
-                0x000000000010470d      0x496 kernel/kernel.lo
-                                        0x49c (松开之前的大小)
+                0x0000000000104749      0x4a8 kernel/kernel.lo
+                                        0x4ae (松开之前的大小)
 
-.rodata.str1.4  0x0000000000104ba4      0x17b
+.rodata.str1.4  0x0000000000104bf4      0x173
  .rodata.str1.4
-                0x0000000000104ba4      0x17b kernel/kernel.lo
+                0x0000000000104bf4      0x173 kernel/kernel.lo
 
-.eh_frame       0x0000000000104d20     0x1c34
- .eh_frame      0x0000000000104d20     0x1c34 kernel/kernel.lo
+.eh_frame       0x0000000000104d68     0x1c34
+ .eh_frame      0x0000000000104d68     0x1c34 kernel/kernel.lo
                                        0x1eec (松开之前的大小)
 
-.rel.dyn        0x0000000000106954        0x0
- .rel.got       0x0000000000106954        0x0 kernel/kernel.lo
- .rel.iplt      0x0000000000106954        0x0 kernel/kernel.lo
- .rel.text      0x0000000000106954        0x0 kernel/kernel.lo
+.rel.dyn        0x000000000010699c        0x0
+ .rel.got       0x000000000010699c        0x0 kernel/kernel.lo
+ .rel.iplt      0x000000000010699c        0x0 kernel/kernel.lo
+ .rel.text      0x000000000010699c        0x0 kernel/kernel.lo
 
-.data           0x0000000000106960    0x39326
+.data           0x00000000001069a0    0x39326
  *(.data)
- .data          0x0000000000106960       0x40 kernel/kernel.lo
-                0x0000000000106960                current_thread
-                0x0000000000106964                pok_sched_slots_allocation
-                0x0000000000106980                pok_sched_slots
- .data          0x00000000001069a0        0x8 sizes.o
-                0x00000000001069a0                part_sizes
+ .data          0x00000000001069a0       0x40 kernel/kernel.lo
+                0x00000000001069a0                current_thread
+                0x00000000001069a4                pok_sched_slots_allocation
+                0x00000000001069c0                pok_sched_slots
+ .data          0x00000000001069e0        0x8 sizes.o
+                0x00000000001069e0                part_sizes
  *(.bss)
- *fill*         0x00000000001069a8       0x18 
- .bss           0x00000000001069c0     0x2048 kernel/kernel.lo
-                0x00000000001069c0                pok_partitions_index
-                0x00000000001069c2                flag_wrr
-                0x00000000001069c4                pok_sched_current_slot
-                0x00000000001069c8                pok_tick_counter
-                0x00000000001069d0                pok_print_attr_fn
-                0x00000000001069d4                pok_print_char_fn
- .bss           0x0000000000108a08        0x0 sizes.o
+ *fill*         0x00000000001069e8       0x18 
+ .bss           0x0000000000106a00     0x2048 kernel/kernel.lo
+                0x0000000000106a00                pok_partitions_index
+                0x0000000000106a02                flag_wrr
+                0x0000000000106a04                pok_sched_current_slot
+                0x0000000000106a08                pok_tick_counter
+                0x0000000000106a10                pok_print_attr_fn
+                0x0000000000106a14                pok_print_char_fn
+ .bss           0x0000000000108a48        0x0 sizes.o
  *(COMMON)
- *fill*         0x0000000000108a08       0x18 
- COMMON         0x0000000000108a20     0x554a kernel/kernel.lo
-                0x0000000000108a20                pok_idt
-                0x0000000000109220                pok_x86_pm_heap_end
-                0x0000000000109224                pok_multiboot_magic
-                0x0000000000109228                pok_x86_pm_heap_start
-                0x0000000000109230                pok_sched_next_major_frame
-                0x0000000000109238                pok_multiboot_info
-                0x000000000010923c                pit_freq
-                0x0000000000109240                pok_threads
-                0x0000000000109560                pok_stack
-                0x000000000010d560                pok_x86_pm_brk
-                0x000000000010d568                pok_sched_next_deadline
-                0x000000000010d570                pok_global_sched
-                0x000000000010d580                pok_partitions
-                0x000000000010d640                pok_gdt
-                0x000000000010de40                pok_sched_next_flush
-                0x000000000010de48                g_cons
-                0x000000000010de60                pok_tss
-                0x000000000010dee0                pok_partitions_lockobjs
-                0x000000000010df68                pok_current_partition
-                0x000000000010df6a                __archive_begin = .
+ *fill*         0x0000000000108a48       0x18 
+ COMMON         0x0000000000108a60     0x554a kernel/kernel.lo
+                0x0000000000108a60                pok_idt
+                0x0000000000109260                pok_x86_pm_heap_end
+                0x0000000000109264                pok_multiboot_magic
+                0x0000000000109268                pok_x86_pm_heap_start
+                0x0000000000109270                pok_sched_next_major_frame
+                0x0000000000109278                pok_multiboot_info
+                0x000000000010927c                pit_freq
+                0x0000000000109280                pok_threads
+                0x00000000001095a0                pok_stack
+                0x000000000010d5a0                pok_x86_pm_brk
+                0x000000000010d5a8                pok_sched_next_deadline
+                0x000000000010d5b0                pok_global_sched
+                0x000000000010d5c0                pok_partitions
+                0x000000000010d680                pok_gdt
+                0x000000000010de80                pok_sched_next_flush
+                0x000000000010de88                g_cons
+                0x000000000010dea0                pok_tss
+                0x000000000010df20                pok_partitions_lockobjs
+                0x000000000010dfa8                pok_current_partition
+                0x000000000010dfaa                __archive_begin = .
  *(.archive)
-                0x000000000010df6a                __archive_end = .
-                0x000000000010df6a                __archive2_begin = .
+                0x000000000010dfaa                __archive_end = .
+                0x000000000010dfaa                __archive2_begin = .
  *(.archive2)
- .archive2      0x000000000010df6a    0x31d1c sizes.o
-                0x000000000013fc86                __archive2_end = .
-                0x000000000013fc86                __pok_end = .
+ .archive2      0x000000000010dfaa    0x31d1c sizes.o
+                0x000000000013fcc6                __archive2_end = .
+                0x000000000013fcc6                __pok_end = .
 LOAD kernel/kernel.lo
 LOAD sizes.o
 OUTPUT(/home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pok.elf elf32-i386)
 
 .data.rel.ro.local
-                0x000000000013fca0       0x60
+                0x000000000013fce0       0x60
  .data.rel.ro.local
-                0x000000000013fca0       0x60 kernel/kernel.lo
+                0x000000000013fce0       0x60 kernel/kernel.lo
 
-.data.rel.ro    0x000000000013fd00       0xa0
- .data.rel.ro   0x000000000013fd00       0xa0 kernel/kernel.lo
+.data.rel.ro    0x000000000013fd40       0xa0
+ .data.rel.ro   0x000000000013fd40       0xa0 kernel/kernel.lo
 
-.got            0x000000000013fda0        0x8
- .got           0x000000000013fda0        0x8 kernel/kernel.lo
+.got            0x000000000013fde0        0x8
+ .got           0x000000000013fde0        0x8 kernel/kernel.lo
 
-.got.plt        0x000000000013fda8        0xc
- .got.plt       0x000000000013fda8        0xc kernel/kernel.lo
-                0x000000000013fda8                _GLOBAL_OFFSET_TABLE_
+.got.plt        0x000000000013fde8        0xc
+ .got.plt       0x000000000013fde8        0xc kernel/kernel.lo
+                0x000000000013fde8                _GLOBAL_OFFSET_TABLE_
 
-.igot.plt       0x000000000013fdb4        0x0
- .igot.plt      0x000000000013fdb4        0x0 kernel/kernel.lo
+.igot.plt       0x000000000013fdf4        0x0
+ .igot.plt      0x000000000013fdf4        0x0 kernel/kernel.lo
 
 .comment        0x0000000000000000       0x2a
  .comment       0x0000000000000000       0x2a kernel/kernel.lo
@@ -385,17 +385,17 @@ OUTPUT(/home/cpq/cpq/20Fall/pok_homework/examples/test_wrr/pok.elf elf32-i386)
  .debug_aranges
                 0x0000000000000650       0x18 sizes.o
 
-.debug_info     0x0000000000000000     0xac19
- .debug_info    0x0000000000000000     0xaba3 kernel/kernel.lo
- .debug_info    0x000000000000aba3       0x76 sizes.o
+.debug_info     0x0000000000000000     0xac22
+ .debug_info    0x0000000000000000     0xabac kernel/kernel.lo
+ .debug_info    0x000000000000abac       0x76 sizes.o
 
 .debug_abbrev   0x0000000000000000     0x2f9f
  .debug_abbrev  0x0000000000000000     0x2f50 kernel/kernel.lo
  .debug_abbrev  0x0000000000002f50       0x4f sizes.o
 
-.debug_line     0x0000000000000000     0x4a04
- .debug_line    0x0000000000000000     0x497e kernel/kernel.lo
- .debug_line    0x000000000000497e       0x86 sizes.o
+.debug_line     0x0000000000000000     0x4a49
+ .debug_line    0x0000000000000000     0x49c3 kernel/kernel.lo
+ .debug_line    0x00000000000049c3       0x86 sizes.o
 
 .debug_str      0x0000000000000000     0x272c
  .debug_str     0x0000000000000000     0x2660 kernel/kernel.lo
