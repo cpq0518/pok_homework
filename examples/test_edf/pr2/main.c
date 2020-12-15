@@ -20,6 +20,8 @@
 #include <core/semaphore.h>
 #include <types.h>
 #include "activity.h"
+#include <kernel/include/errno.h>
+#include <kernel/include/core/partition.h>
 
 uint8_t sid;
 
