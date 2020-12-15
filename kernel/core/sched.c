@@ -37,7 +37,6 @@
 #include <middleware/port.h>
 #endif
 
-
 #include <dependencies.h>
 
 #include <core/debug.h>
@@ -210,10 +209,10 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
                          * only 255 partitions are max, so, we use an uin8_t
                          * type
                          */
-   pok_thread_t* thread;
+   pok_thread_t* thread;//COMMENT: used to store the thread in this "new partition"(see line 202)
    for (i = 0; i < new_partition->nthreads; i++)
    {
-     thread = &(pok_threads[new_partition->thread_index_low + i]);
+     thread = &(pok_threads[new_partition->thread_index_low + i]);//COMMENT:browse each thread in pok_threads[]
 
 #if defined (POK_NEEDS_LOCKOBJECTS) || defined (POK_NEEDS_PORTS_QUEUEING) || defined (POK_NEEDS_PORTS_SAMPLING)
      if ((thread->state == POK_STATE_WAITING) && (thread->wakeup_time <= now))
@@ -246,11 +245,11 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
          }
          else
          {
-            elected = new_partition->thread_main;
+            elected = new_partition->thread_main;//COMMENT: if no error, select the main thread
          }
 #endif
 
-         elected = new_partition->thread_main;
+         elected = new_partition->thread_main;//COMMENT: if no error, select the main thread
          break;
 
       case POK_PARTITION_MODE_NORMAL:
@@ -283,7 +282,7 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
          elected = new_partition->sched_func (new_partition->thread_index_low,
                                                      new_partition->thread_index_high,
 						     new_partition->prev_thread,
-						     new_partition->current_thread);
+						     new_partition->current_thread);//COMMENT:  choose a scheduling algorithm for "new partition"
 #ifdef POK_NEEDS_INSTRUMENTATION
           if ( (elected != IDLE_THREAD) && (elected != new_partition->thread_main))
           {
@@ -310,8 +309,13 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
    pok_threads[elected].end_time = now + pok_threads[elected].remaining_time_capacity;
 
    return (elected);
-}
+}//COMMENT: ends the function "uint32_t	pok_elect_thread(uint8_t new_partition_id)"
 #endif /* POK_NEEDS_PARTITIONS */
+
+
+
+
+
 
 #ifdef POK_NEEDS_PARTITIONS
 void pok_sched()
@@ -332,7 +336,7 @@ void pok_sched()
     /* computes next partition deadline */
     pok_sched_next_deadline += pok_threads[elected_thread].remaining_time_capacity;
   }
-  else /* overmegadirty */
+  else /* overmegadirty */ //COMMENT: else if thread has finished its job or its deadline is not passed or both
 #endif /* POK_NEEDS_SCHED_HFPPS */
   {
   
@@ -469,11 +473,7 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
 {
    uint32_t res;
    uint32_t from;
-   /*printf("HELLO FROM RR\n");
-   printf("index_low = %d\n",index_low);//0
-   printf("index_high = %d\n",index_high);//3
-   printf("prev_thread = %d\n",prev_thread);//2
-   printf("current_thread = %d\n",current_thread);//8*/
+   //printf("HELLO FROM RR\n");
    if (current_thread == IDLE_THREAD)
    {
       res = prev_thread;
@@ -512,11 +512,7 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
 //self-adding part begins
 uint32_t pok_sched_part_weighted_rr (const uint32_t index_low, const uint32_t index_high,const uint32_t prev_thread,const uint32_t current_thread)
 {
-   /*printf("HELLO FROM WRR\n");
-   printf("index_low = %d\n",index_low);//3
-   printf("index_high = %d\n",index_high);//7
-   printf("prev_thread = %d\n",prev_thread);//6
-   printf("current_thread = %d\n",current_thread);//8*/
+   //printf("HELLO FROM WRR\n");
    uint32_t res;
    uint32_t from;
 

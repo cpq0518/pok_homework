@@ -10,22 +10,22 @@ syscall.o: syscall.c ../..//kernel/include/bsp.h \
  ../..//kernel/include/arch.h ../..//kernel/include/arch/x86/spinlock.h \
  ../..//kernel/include/core/time.h ../..//kernel/include/core/error.h \
  ../..//kernel/include/middleware/port.h
-sched_origin.o: sched_origin.c
-time.o: time.c
-error.o: error.c
-partition.o: partition.c
-kernel.o: kernel.c
-loader.o: loader.c
-thread_origin.o: thread_origin.c ../..//kernel/include/types.h \
+thread_abandon.o: thread_abandon.c ../..//kernel/include/types.h \
  ../..//kernel/include/arch/x86/types.h ../..//kernel/include/arch.h \
  ../..//kernel/include/errno.h ../..//kernel/include/arch/x86/spinlock.h \
  ../..//kernel/include/core/debug.h ../..//kernel/include/core/error.h \
  ../..//kernel/include/core/thread.h ../..//kernel/include/core/sched.h \
  ../..//kernel/include/core/partition.h ../..//kernel/include/core/time.h \
  ../..//kernel/include/core/instrumentation.h
+error.o: error.c
+time.o: time.c
+partition.o: partition.c
+kernel.o: kernel.c
+loader.o: loader.c
 cons.o: cons.c
 sched.o: sched.c
 debug.o: debug.c
+sched_abandon.o: sched_abandon.c
 thread.o: thread.c ../..//kernel/include/types.h \
  ../..//kernel/include/arch/x86/types.h ../..//kernel/include/arch.h \
  ../..//kernel/include/errno.h ../..//kernel/include/arch/x86/spinlock.h \
