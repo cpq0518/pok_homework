@@ -21,7 +21,6 @@
 #include <core/semaphore.h>
 #include <types.h>
 #include "activity.h"
-#include <kernel/include/errno.h>
 
 uint8_t sid;
 
