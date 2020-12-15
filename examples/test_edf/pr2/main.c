@@ -42,7 +42,7 @@ int main ()
 //  tattr.period = 5000000000;
 //  tattr.time_capacity = 2;
 
-  ret = (&tid , &tattr);
+  ret = pok_thread_create(&tid , &tattr);
   printf ("[P2] thread create (1) returns=%d\n", ret);
 
   tattr.priority = 40;
