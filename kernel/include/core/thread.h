@@ -55,6 +55,13 @@
 #define POK_USER_STACK_SIZE 8096
 #endif
 
+
+typedef struct
+{
+	int index;
+	int value;
+}wrr_result_t;
+
 typedef struct
 {
 	 uint8_t      priority;

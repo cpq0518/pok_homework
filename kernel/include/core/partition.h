@@ -66,6 +66,9 @@ typedef enum
  */
 typedef struct
 {
+   int i_wrr;
+   int cw_wrr;
+   int count_index_wrr;
    uint32_t              base_addr;    /**< The base address inside the whole memory (where the segment is in the whole memory ?) */
    uint32_t              base_vaddr;   /**< The virtual address of the partition. The address the threads sees when they are
                                         *    executed

@@ -45,12 +45,17 @@
 
 extern pok_thread_t       pok_threads[];
 
+
 #ifdef POK_NEEDS_PARTITIONS
 extern pok_partition_t    pok_partitions[];
+
+
 
 /**
  * \brief The variable that contains the value of partition currently being executed
  */
+
+
 uint8_t                   pok_current_partition;
 
 void                      pok_sched_partition_switch();
@@ -473,7 +478,10 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
 {
    uint32_t res;
    uint32_t from;
-   //printf("HELLO FROM RR\n");
+   /*for(int j=0;j<POK_CONFIG_NB_THREADS;j++){
+      printf("%d %d\n", j, pok_threads[j].state);
+   }
+   printf("HELLO FROM RR\n");*/
    if (current_thread == IDLE_THREAD)
    {
       res = prev_thread;
@@ -509,13 +517,139 @@ uint32_t pok_sched_part_rr (const uint32_t index_low, const uint32_t index_high,
    return res;
 }
 
-//self-adding part begins
+#ifdef POK_NEEDS_SCHED_WEIGHTED_RR
+/**
+ * This part is dedicated to the Weighted RR scheduling algorithm.
+ */
+
+
+int num_threads;//self-adding:used to store the size of array_weights
+int partition_id_wrr;//self-adding:used to store the partition id, especially for wrr
+
+
+/*This function replaces % to prevent overflow.*/
+int get_mod(int a, int b)
+{
+   int mod;
+   mod=a-(int)(a/b)*b;
+   return mod;
+}
+
+
+int gcd_of_two_weights(int weight1, int weight2)
+{
+   int result=weight2;
+   while(get_mod(weight1,weight2)!=0){
+      result=get_mod(weight1,weight2);
+      weight1=weight2;
+      weight2=result;
+   }
+   return result;
+}
+
+
+int gcd_of_array_weights(int n,int id)
+{
+   
+   int result;
+   int array_weights[n];
+
+   for(int i=0;i<n;i++){
+      array_weights[i]=pok_threads[pok_partitions[id].thread_index_low+i+1].weight;
+      //printf("array_weights[%d] = %d\n", i, array_weights[i]);
+   }
+   
+
+   result=array_weights[0];
+   for (int i=1;i<n;i++){
+      result=gcd_of_two_weights(result,array_weights[i]);
+   }
+   
+   return result;
+}
+
+int max_of_array_weights(int n,int id)
+{
+   int result;
+   int array_weights[n];
+
+   for(int i=0;i<n;i++){
+      array_weights[i]=pok_threads[pok_partitions[id].thread_index_low+i+1].weight;
+   }
+   result=array_weights[0];
+
+   for (int i=1;i<n;i++){
+      if(result<array_weights[i]){
+         result=array_weights[i];
+      }
+   }
+   return result;
+}
+
+int sum_of_array_weights(int n,int id)
+{
+   int sum;
+   int array_weights[n];
+
+   for(int i=0;i<n;i++){
+      array_weights[i]=pok_threads[pok_partitions[id].thread_index_low+i+1].weight;
+   }
+   sum=0;
+
+   for (int i=0;i<n;i++){
+      sum+=array_weights[i];
+   }
+   
+   return sum;
+}
+
+
+int pok_thread_determine_wrr(uint16_t index_low,int max, int gcd, int *i, int *cw)
+{
+
+   num_threads=(int)pok_partitions[pok_current_partition].nthreads-1;
+   while(1){
+      
+      *i=get_mod((*i+1),num_threads);
+      
+      if(*i==0){
+         *cw=*cw-gcd;
+         if(*cw<=0){
+            *cw=max;
+            if(*cw==0){
+               printf("Error in getting current weight!\n");
+               return 0;
+            }
+         }
+      }
+      
+      //printf("pok_threads[%d].weight=%d\n",*i+(int)index_low,pok_threads[*i+(int)index_low].weight);
+      if(pok_threads[*i+(int)index_low].weight>=*cw){
+         return *i+(int)index_low;
+      }
+   }
+}
+
+
+
 uint32_t pok_sched_part_weighted_rr (const uint32_t index_low, const uint32_t index_high,const uint32_t prev_thread,const uint32_t current_thread)
 {
-   //printf("HELLO FROM WRR\n");
+   
+   num_threads=(int)pok_partitions[pok_current_partition].nthreads-1;
+   partition_id_wrr=(int)pok_current_partition;
+
+   int sum=sum_of_array_weights(num_threads,partition_id_wrr);
+   int max=max_of_array_weights(num_threads,partition_id_wrr);
+   int gcd=gcd_of_array_weights(num_threads,partition_id_wrr);
+   //printf("sum=%d\n",sum);
+   //printf("max=%d\n",max);
+   //printf("gcd=%d\n",gcd);
+  
+   
    uint32_t res;
    uint32_t from;
 
+   //printf("HELLO FROM WRR\n");
    if (current_thread == IDLE_THREAD)
    {
       res = prev_thread;
@@ -530,24 +664,45 @@ uint32_t pok_sched_part_weighted_rr (const uint32_t index_low, const uint32_t in
    if ((pok_threads[current_thread].remaining_time_capacity > 0) && (pok_threads[current_thread].state == POK_STATE_RUNNABLE))
    {
       return current_thread;
+      printf("RETURN (current_thread) = %d\n",current_thread);
    }
+
+   //printf("res = %d\n",res);
 
    do
    {
-      res++;
+      
+      res=pok_thread_determine_wrr(index_low+1,max,gcd,&(pok_partitions[partition_id_wrr].i_wrr),
+      &(pok_partitions[partition_id_wrr].cw_wrr));
+      pok_partitions[partition_id_wrr].count_index_wrr=pok_partitions[partition_id_wrr].count_index_wrr+1;
+
+
       if (res > index_high)
       {
          res = index_low;
       }
-   }
-   while ((res != from) && (pok_threads[res].state != POK_STATE_RUNNABLE));
+
+      if(pok_partitions[partition_id_wrr].count_index_wrr>=sum){
+         pok_partitions[partition_id_wrr].i_wrr=-1;
+         pok_partitions[partition_id_wrr].cw_wrr=0;
+         pok_partitions[partition_id_wrr].count_index_wrr=0;
+      }
+   }while ((res != from) && (pok_threads[res].state != POK_STATE_RUNNABLE));
+
 
    if ((res == from) && (pok_threads[res].state != POK_STATE_RUNNABLE))
    {
       res = IDLE_THREAD;
    }
+   printf("RETURN (res) = %d\n",res);
    return res;
 }
+
+#endif/* POK_NEEDS_SCHED_WEIGHTED_RR */
+
+
+
+
 
 #ifdef POK_NEEDS_SCHED_PREEMPTIVE_PRIORITY
 uint32_t pok_sched_part_preemptive_priority (const uint32_t index_low, const uint32_t index_high,const uint32_t __attribute__((unused)) prev_thread,const uint32_t __attribute__((unused)) current_thread)

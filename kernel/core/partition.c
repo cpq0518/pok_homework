@@ -188,6 +188,9 @@ pok_ret_t pok_partition_init ()
       pok_partitions[i].base_addr   = base_addr;
       pok_partitions[i].size        = size;
       pok_partitions[i].sched       = POK_SCHED_RR;
+      pok_partitions[i].i_wrr       = -1;//self-adding
+      pok_partitions[i].cw_wrr      = 0;//self-adding
+      pok_partitions[i].count_index_wrr=0;//self-adding
      
 #ifdef POK_NEEDS_COVERAGE_INFOS
 #include <libc.h>
