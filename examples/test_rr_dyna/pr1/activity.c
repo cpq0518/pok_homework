@@ -19,6 +19,7 @@
 #include <core/thread.h>
 #include <core/semaphore.h>
 #include <types.h>
+#include <core/time.h>
 
 extern uint8_t sid;
 uint8_t val;
@@ -31,6 +32,12 @@ void* pinger_job ()
       printf ("P1T1: I will signal semaphores\n");
       ret = pok_sem_signal (sid);
       printf ("P1T1: pok_sem_signal, ret=%d\n", ret);
+
+      // pok_time_t tick;
+      // pok_time_gettick(&tick);
+      // printf ("P1T1: pok_time_gettick: ");
+      // printf ("%d\n", tick);
+
       pok_thread_sleep (2000000);
    }
 }
@@ -45,6 +52,12 @@ void* pinger_job2 ()
       printf ("P1T2: pok_sem_wait, ret=%d\n", ret);
       ret = pok_sem_wait (sid, 0);
       printf ("P1T2: pok_sem_wait, ret=%d\n", ret);
+
+      // pok_time_t tick;
+      // pok_time_gettick(&tick);
+      // printf ("P1T2: pok_time_gettick: ");
+      // printf ("%d\n", tick);
+
       pok_thread_sleep (2000000);
    }
 }

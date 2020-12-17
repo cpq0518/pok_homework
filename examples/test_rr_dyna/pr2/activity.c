@@ -17,11 +17,19 @@
 
 #include <libc/stdio.h>
 #include <core/thread.h>
+#include <core/time.h>
+
 void* pinger_job ()
 {
    while (1)
    {
       printf("P2T1: begin of task1\n");
+
+    //   pok_time_t tick;
+    //   pok_time_gettick(&tick);
+    //   printf ("P2T1: pok_time_gettick: ");
+    //   printf ("%d\n", tick);
+
       pok_thread_sleep (5000000);
    }
 }
@@ -31,6 +39,12 @@ void* pinger_job2 ()
     while (1)
     {
         printf("P2T2: begin of task2\n");
+
+        // pok_time_t ns;
+        // pok_time_get(&ns);
+        // printf ("P2T2: pok_time_get: ");
+        // printf ("%d\n", ns);
+
         pok_thread_sleep (5000000);
     }
 }

@@ -37,8 +37,12 @@ typedef struct
 	 uint64_t     deadline;
 	 uint64_t     weight;
 	 uint64_t     time_capacity;
+	 // 2020.12.16 dyna self-adding
+	 uint64_t     arrive_time;
+	 char         arrive_flag;
+	 // end self-adding
 	 uint32_t     stack_size;
-	 uint32_t  state;
+	 uint32_t     state;
 } pok_thread_attr_t;
 
 

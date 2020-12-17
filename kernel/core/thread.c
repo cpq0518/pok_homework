@@ -35,6 +35,31 @@
 
 #ifdef POK_NEEDS_THREADS
 
+
+
+/* 2020.12.16 dynamic pr 
+   global vars
+   虚假的动态数组：足够大空间的数组的全局变量
+*/
+uint64_t pok_config_scheduling_slots[100];
+// for(int i=0;i<100;i++)
+// {
+//    // init: 0
+//    pok_config_scheduling_slots[i] = 0;
+// }
+
+int pok_config_scheduling_slots_allocation[100];
+// for(int i=0;i<100;i++)
+// {
+//    // init: -1
+//    pok_config_scheduling_slots_allocation[i] = -1;
+// }
+
+int pok_config_scheduling_nbslots;
+// // init: 0
+// pok_config_scheduling_nbslots = 0;
+
+
 /**
  * We declare an array of threads. The amount of threads
  * is fixed by the software developper and we add two theads
@@ -99,6 +124,15 @@ void pok_thread_preemptive_priority_sort(uint16_t index_low, uint16_t index_high
  */
 void pok_thread_preemptive_edf_sort(uint16_t index_low, uint16_t index_high)
 {
+   /* 2020.12.16 test gettick */
+   //  pok_time_t * tick;
+   //  pok_ret_t ret1;
+   //  ret1 = pok_time_gettick(tick);
+   //  printf ("main: pok_time_gettick: ");
+   //  printf ("%d\n", ret1);
+
+
+
     uint32_t i=index_high,j=0;
     pok_thread_t val;
 
@@ -370,6 +404,29 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
       pok_threads[id].weight      = attr->weight;
    }
 
+   // 2020.12.16 dyna
+   if (attr->arrive_time > 0)
+   {
+      pok_threads[id].arrive_time      = attr->arrive_time;
+   }
+   else
+   {
+      pok_threads[id].arrive_time      = 0;  // 0: arrive_time is not set
+   }
+
+   if (attr->state != 0)
+   {
+      pok_threads[id].state      = attr->state;
+   }
+
+   if (pok_threads[id].arrive_flag != 1)
+   {
+      pok_threads[id].arrive_flag         = 0;
+   }
+
+   // END DYNA
+   
+
 #ifdef POK_NEEDS_SCHED_HFPPS
    pok_threads[id].payback = 0;
 #endif /* POK_NEEDS_SCHED_HFPPS */
@@ -479,6 +536,8 @@ pok_ret_t pok_partition_thread_create (uint32_t*                  thread_id,
       //printf("uuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu\n");
    }
 #endif
+
+
 
 #ifdef POK_NEEDS_INSTRUMENTATION
       pok_instrumentation_task_archi (id);

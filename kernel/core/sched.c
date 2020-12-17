@@ -199,6 +199,9 @@ uint8_t	pok_elect_partition()
 uint32_t	pok_elect_thread(uint8_t new_partition_id)
 {
    uint64_t now = POK_GETTICK();
+
+   // printf("111111: %u\n", now);
+   
    pok_partition_t* new_partition = &(pok_partitions[new_partition_id]);
 
 
@@ -220,6 +223,26 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
        thread->state = POK_STATE_RUNNABLE;
      }
 #endif
+   
+   // 2020.12.16 dyna
+   // 100000 is a small number that ensures exceptions won't happen
+   if ((thread->state == POK_STATE_NOT_ARRIVED) && (thread->arrive_time <= now) && (thread->arrive_flag == 0)) 
+     {
+      //  printf("The time tick is: %u  ", now);   //  FXIME: when 2 threads arrives, T1->arrive_time == 1527
+      //  printf("current state: %d   ", thread->state);
+      //  printf("current arrive time: %u   ", thread->arrive_time);
+      //  printf("current arrive flag: %d   ", thread->arrive_flag);
+       printf("I arrived! Current time=%u\n", now);
+       thread->arrive_flag = 1;  
+      //  printf("after arrive flag: %d   ", thread->arrive_flag);
+       
+       thread->state = POK_STATE_RUNNABLE;
+     }
+   if ((thread->arrive_time != 0) && (thread->arrive_time != 1) && (thread->arrive_time > now))
+   {
+      thread->state = POK_STATE_NOT_ARRIVED;
+   }
+   
 
      if ((thread->state == POK_STATE_WAIT_NEXT_ACTIVATION) && (thread->next_activation <= now))
      {
@@ -308,6 +331,8 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
    // computed next thread's deadline
    pok_threads[elected].end_time = now + pok_threads[elected].remaining_time_capacity;
 
+   
+
    return (elected);
 }
 #endif /* POK_NEEDS_PARTITIONS */
@@ -315,6 +340,8 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
 #ifdef POK_NEEDS_PARTITIONS
 void pok_sched()
 {
+   // printf("POK_GETTICK: ");
+   // printf("%u\n", POK_GETTICK());
   uint32_t elected_thread = 0;
   uint8_t elected_partition = POK_SCHED_CURRENT_PARTITION;
 
