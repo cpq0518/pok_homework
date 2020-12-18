@@ -62,9 +62,23 @@ extern void pok_port_flush_partition (uint8_t);
 #endif
 
 uint64_t           pok_sched_slots[POK_CONFIG_SCHEDULING_NBSLOTS]
-                              = (uint64_t[]) POK_CONFIG_SCHEDULING_SLOTS;
+                              = (uint64_t[]) POK_CONFIG_SCHEDULING_SLOTS();
 uint8_t           pok_sched_slots_allocation[POK_CONFIG_SCHEDULING_NBSLOTS]
-                              = (uint8_t[]) POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION;
+                              = (uint8_t[]) POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION();
+
+// 2020.12.16 dyna pr
+printf("WUHUWUHUWUHUW!!!!!\n");
+printf("%d", POK_CONFIG_SCHEDULING_NBSLOTS);
+for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+{
+   printf("%u, ", pok_sched_slots[i]);
+}
+printf("\n");
+for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+{
+   printf("%u, ", pok_sched_slots_allocation[i]);
+}
+printf("\n");
 
 pok_sched_t       pok_global_sched;
 uint64_t          pok_sched_next_deadline;
@@ -228,14 +242,8 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
    // 100000 is a small number that ensures exceptions won't happen
    if ((thread->state == POK_STATE_NOT_ARRIVED) && (thread->arrive_time <= now) && (thread->arrive_flag == 0)) 
      {
-      //  printf("The time tick is: %u  ", now);   //  FXIME: when 2 threads arrives, T1->arrive_time == 1527
-      //  printf("current state: %d   ", thread->state);
-      //  printf("current arrive time: %u   ", thread->arrive_time);
-      //  printf("current arrive flag: %d   ", thread->arrive_flag);
        printf("I arrived! Current time=%u\n", now);
        thread->arrive_flag = 1;  
-      //  printf("after arrive flag: %d   ", thread->arrive_flag);
-       
        thread->state = POK_STATE_RUNNABLE;
      }
    if ((thread->arrive_time != 0) && (thread->arrive_time != 1) && (thread->arrive_time > now))

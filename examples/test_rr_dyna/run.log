@@ -6,12 +6,3 @@ P1T1: I will signal semaphores
 P1T1: pok_sem_signal, ret=0
 P1T2: I will wait for the semaphores
 P1T2: pok_sem_wait, ret=0
-rand_1: 4
-[P2] thread create (1) returns=0 arrive_time=4000000000l
-[P2] thread create (2) returns=0 arrive_time=3000000000l
-I arrived! Current time=3005394000
-P2T2: begin of task2
-I arrived! Current time=4001046000
-P2T1: begin of task1
-P2T2: begin of task2
-P2T1: begin of task1

@@ -50,10 +50,8 @@ int main ()
 
   tattr.priority = 42;
   tattr.entry = pinger_job;
-  // fixed for test
-  // tattr.arrive_time = 3000000000 ;   // 第三秒到达
   int rand_1 = rand() % 3 + 2;
-  printf("rand_1: %d\n", rand_1);
+  // printf("rand_1: %d\n", rand_1);
   tattr.arrive_time = fake_rand(rand_1) ;   // 第2~4秒到达 因为怕等待时间太长就设的范围比较小 而且超过5 printf会溢出展示效果不好（实际运行正常）
   tattr.state = 6; //POK_STATE_NOT_ARRIVED
 
@@ -62,8 +60,6 @@ int main ()
 
   tattr.priority = 42;
   tattr.entry = pinger_job2;
-  // fixed for test
-  // tattr.arrive_time = 4000000000 ;   // 第四秒到达
   int rand_2 = rand() % 3 + 2;
   tattr.arrive_time = fake_rand(rand_2) ;   // 第2~4秒到达 因为怕等待时间太长就设的范围比较小 而且超过5 printf会溢出展示效果不好（实际运行正常）
   tattr.state = 6; //POK_STATE_NOT_ARRIVED
