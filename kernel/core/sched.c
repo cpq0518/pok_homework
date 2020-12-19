@@ -61,24 +61,38 @@ extern void pok_port_flushall (void);
 extern void pok_port_flush_partition (uint8_t);
 #endif
 
-uint64_t           pok_sched_slots[POK_CONFIG_SCHEDULING_NBSLOTS]
-                              = (uint64_t[]) POK_CONFIG_SCHEDULING_SLOTS();
-uint8_t           pok_sched_slots_allocation[POK_CONFIG_SCHEDULING_NBSLOTS]
-                              = (uint8_t[]) POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION();
+/* 2020.12.16 dyna pr */
+/* Attention: only compat with test_rr_dyna*/
+int var_POK_CONFIG_SCHEDULING_NBSLOTS;
+POK_CONFIG_SCHEDULING_NBSLOTS(var_POK_CONFIG_SCHEDULING_NBSLOTS)
+
+uint64_t var_POK_CONFIG_SCHEDULING_SLOTS[var_POK_CONFIG_SCHEDULING_NBSLOTS];
+POK_CONFIG_SCHEDULING_SLOTS(var_POK_CONFIG_SCHEDULING_SLOTS)
+
+uint8_t var_POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION;
+POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION(var_POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION)
+
+
+
+uint64_t           pok_sched_slots[var_POK_CONFIG_SCHEDULING_NBSLOTS]
+                              = (uint64_t[]) var_POK_CONFIG_SCHEDULING_SLOTS;
+uint8_t           pok_sched_slots_allocation[var_POK_CONFIG_SCHEDULING_NBSLOTS]
+                              = (uint8_t[]) var_POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION;
+/* end 2020.12.16 dyna pr*/
 
 // 2020.12.16 dyna pr
-printf("WUHUWUHUWUHUW!!!!!\n");
-printf("%d", POK_CONFIG_SCHEDULING_NBSLOTS);
-for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++)
-{
-   printf("%u, ", pok_sched_slots[i]);
-}
-printf("\n");
-for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++)
-{
-   printf("%u, ", pok_sched_slots_allocation[i]);
-}
-printf("\n");
+// printf("WUHUWUHUWUHUW!!!!!\n");
+// printf("%d", POK_CONFIG_SCHEDULING_NBSLOTS);
+// for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+// {
+//    printf("%u, ", pok_sched_slots[i]);
+// }
+// printf("\n");
+// for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+// {
+//    printf("%u, ", pok_sched_slots_allocation[i]);
+// }
+// printf("\n");
 
 pok_sched_t       pok_global_sched;
 uint64_t          pok_sched_next_deadline;
@@ -114,7 +128,10 @@ void pok_sched_init (void)
       total_time = total_time + pok_sched_slots[slot];
    }
 
-   if (total_time != POK_CONFIG_SCHEDULING_MAJOR_FRAME)
+   /* 2020.12.16 dyna */
+   uint64_t sum;
+   POK_CONFIG_SCHEDULING_MAJOR_FRAME(sum, var_POK_CONFIG_SCHEDULING_SLOTS)
+   if (total_time != sum)
    {
 #ifdef POK_NEEDS_DEBUG
       printf ("Major frame is not compliant with all time slots\n");
@@ -127,7 +144,7 @@ void pok_sched_init (void)
 #endif
 
    pok_sched_current_slot        = 0;
-   pok_sched_next_major_frame    = POK_CONFIG_SCHEDULING_MAJOR_FRAME;
+   pok_sched_next_major_frame    = sum;  // 2020.12.16 dyna
    pok_sched_next_deadline       = pok_sched_slots[0];
    pok_sched_next_flush          = 0;
    pok_current_partition         = pok_sched_slots_allocation[0];
@@ -175,7 +192,7 @@ uint8_t	pok_elect_partition()
 #    else // activate default flushing policy at each Major Frame beginning
     if (pok_sched_next_major_frame <= now)
     {
-      pok_sched_next_major_frame = pok_sched_next_major_frame +	POK_CONFIG_SCHEDULING_MAJOR_FRAME;
+      pok_sched_next_major_frame = pok_sched_next_major_frame +	sum;  // 2020.12.16 dyna
       pok_port_flushall();
     }
 #    endif /* defined POK_FLUSH_PERIOD || POK_NEEDS_FLUSH_ON_WINDOWS */

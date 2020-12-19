@@ -14,7 +14,7 @@
  * Created by julien on Thu Jan 15 23:34:13 2009 
  */
 
-
+#include <stdlib.h>
 #ifndef __POK_KERNEL_GENERATED_DEPLOYMENT_H_
 #define __POK_KERNEL_GENERATED_DEPLOYMENT_H_ 
 #include <core/schedvalues.h>
@@ -42,22 +42,12 @@
 // #define POK_CONFIG_SCHEDULING_NBSLOTS 4  // 3~8: global var: pok_config_scheduling_nbslots
 
 // 2020.12.16 dyna pr
-#define POK_CONFIG_SCHEDULING_NBSLOTS rand()%5+3;  // 3~8: 
-#define POK_CONFIG_SCHEDULING_SLOTS() {\ //{(rand()%39+1)*1000000000, (rand()%39+1)*1000000000, (rand()%39+1)*1000000000, (rand()%39+1)*1000000000}   // 1~40 * 10e9 
-            uint64_t[] temp_slots[POK_CONFIG_SCHEDULING_NBSLOTS];\
-            for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++){\
-               temp_slots[i] = (rand()%39+1)*1000000000;\
-            }\
-            return temp_slots;\
-        }
-#define POK_CONFIG_SCHEDULING_MAJOR_FRAME 53000000000
-#define POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION() {\ //{rand()%1, rand()%1, rand()%1, rand()%1}  // 0~1 
-            uint8_t[] temp_slots_allocation[POK_CONFIG_SCHEDULING_NBSLOTS];\
-            for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++){\
-               temp_slots_allocation[i] = rand()%1;\
-            }\
-            return temp_slots_allocation;\
-        }
+#define POK_CONFIG_SCHEDULING_NBSLOTS(a) {(a) = rand()%5+3;}  // 3~8: 
+
+#define POK_CONFIG_SCHEDULING_SLOTS(a) {int cnt = sizeof((a)) / sizeof((a)[0]);for(int i=0;i<cnt;i++){(a)[i] = (rand()%39+1)*1000000000;}}
+#define POK_CONFIG_SCHEDULING_MAJOR_FRAME(sum,array) {sum = 0;int cnt = sizeof((array)) / sizeof((array)[0]);for(int i=0;i<cnt;i++){sum += (array)[i];}} 
+
+#define POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION(a) {int cnt = sizeof((a)) / sizeof((a)[0]);for(int i=0;i<cnt;i++){a[i] = rand()%1;}}
 
 
 #define POK_NEEDS_THREAD_SUSPEND 1

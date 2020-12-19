@@ -320,7 +320,15 @@ pok_ret_t pok_partition_set_mode (const uint8_t pid, const pok_partition_mode_t 
 			     if(thread->time_capacity>0)
 			       thread->end_time =  thread->wakeup_time + thread->time_capacity;
 			   } else {
-				 thread->next_activation = thread->wakeup_time + POK_CONFIG_SCHEDULING_MAJOR_FRAME + POK_CURRENT_PARTITION.activation;
+               /* 2020.12.16 dyna*/
+               uint64_t sumpp;
+               int var_POK_CONFIG_SCHEDULING_NBSLOTS;
+               POK_CONFIG_SCHEDULING_NBSLOTS(var_POK_CONFIG_SCHEDULING_NBSLOTS)
+
+               uint64_t var_POK_CONFIG_SCHEDULING_SLOTS[var_POK_CONFIG_SCHEDULING_NBSLOTS];
+               POK_CONFIG_SCHEDULING_SLOTS(var_POK_CONFIG_SCHEDULING_SLOTS)
+               POK_CONFIG_SCHEDULING_MAJOR_FRAME(sumpp, var_POK_CONFIG_SCHEDULING_SLOTS)
+				 thread->next_activation = thread->wakeup_time + sumpp + POK_CURRENT_PARTITION.activation;
 				 thread->end_time =  thread->next_activation + thread->time_capacity;
 				 thread->state = POK_STATE_WAIT_NEXT_ACTIVATION;
 			      
