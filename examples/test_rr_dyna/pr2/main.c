@@ -22,6 +22,7 @@
 #include "activity.h"
 #include <core/time.h>
 
+
 // 因为我用了rand生成的数做一些运算得到这个值比较大的时间 但是一直报错 没办法只能这么搞了
 uint64_t fake_rand(int rand_input)
 {
@@ -42,11 +43,11 @@ int main ()
   int ret;
   pok_thread_attr_t     tattr;
 
-
-
-  /* 2020.12.16 dynamic 
-     randomly generate pok_config_scheduling_slots, pok_config_scheduling_slots_allocation and pok_config_scheduling_nbslots
-  */
+  // init some var in sched.c
+  // init_var_POK_CONFIG_SCHEDULING_NBSLOTS();
+  // init_big_random_array();
+  // init_pok_sched_slots();
+  // init_pok_sched_slots_allocation();
 
   tattr.priority = 42;
   tattr.entry = pinger_job;

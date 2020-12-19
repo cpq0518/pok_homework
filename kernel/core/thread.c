@@ -36,30 +36,6 @@
 #ifdef POK_NEEDS_THREADS
 
 
-
-/* 2020.12.16 dynamic pr 
-   global vars
-   虚假的动态数组：足够大空间的数组的全局变量
-*/
-// uint64_t pok_config_scheduling_slots[100];
-// // for(int i=0;i<100;i++)
-// // {
-// //    // init: 0
-// //    pok_config_scheduling_slots[i] = 0;
-// // }
-
-// int pok_config_scheduling_slots_allocation[100];
-// // for(int i=0;i<100;i++)
-// // {
-// //    // init: -1
-// //    pok_config_scheduling_slots_allocation[i] = -1;
-// // }
-
-// int pok_config_scheduling_nbslots;
-// // // init: 0
-// // pok_config_scheduling_nbslots = 0;
-
-
 /**
  * We declare an array of threads. The amount of threads
  * is fixed by the software developper and we add two theads

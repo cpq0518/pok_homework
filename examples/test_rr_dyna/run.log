@@ -1,8 +1,0 @@
-POK kernel initialized
-[P1] pok_sem_create return=0, mid=0
-[P1] pok_thread_create (1) return=0
-[P1] pok_thread_create (2) return=0
-P1T1: I will signal semaphores
-P1T1: pok_sem_signal, ret=0
-P1T2: I will wait for the semaphores
-P1T2: pok_sem_wait, ret=0

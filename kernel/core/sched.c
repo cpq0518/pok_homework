@@ -61,38 +61,87 @@ extern void pok_port_flushall (void);
 extern void pok_port_flush_partition (uint8_t);
 #endif
 
+
+
+
+uint64_t           pok_sched_slots[POK_CONFIG_SCHEDULING_NBSLOTS]
+                              = (uint64_t[]) POK_CONFIG_SCHEDULING_SLOTS;
+uint8_t           pok_sched_slots_allocation[POK_CONFIG_SCHEDULING_NBSLOTS]
+                              = (uint8_t[]) POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION;
+
+
+
+
+
 /* 2020.12.16 dyna pr */
 /* Attention: only compat with test_rr_dyna*/
+/*
+
+// fake random serial
+int fake_random_serial[10] = {154,89,45678,6579,1367,65,4,79,1466,7754};
+int fake_random_serial_pointer = 0;
+int rand_num;
+
+
+
+// generate a fake random number
+void generate_random_number()
+{
+   if(fake_random_serial_pointer > 9) {fake_random_serial_pointer=0;}
+   rand_num = fake_random_serial[fake_random_serial_pointer];
+   fake_random_serial_pointer ++;
+}
+
 int var_POK_CONFIG_SCHEDULING_NBSLOTS;
-POK_CONFIG_SCHEDULING_NBSLOTS(var_POK_CONFIG_SCHEDULING_NBSLOTS)
-
-uint64_t var_POK_CONFIG_SCHEDULING_SLOTS[var_POK_CONFIG_SCHEDULING_NBSLOTS];
-POK_CONFIG_SCHEDULING_SLOTS(var_POK_CONFIG_SCHEDULING_SLOTS)
-
-uint8_t var_POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION;
-POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION(var_POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION)
+void init_var_POK_CONFIG_SCHEDULING_NBSLOTS()
+{
+   generate_random_number();
+   var_POK_CONFIG_SCHEDULING_NBSLOTS = rand_num%5+3;
+}
 
 
+// pok不支持malloc、calloc，所以使用一个很大的全局变量数组big_random_array来作为随机的动态数组
+int big_random_array[100];
+void init_big_random_array()
+{
+   for(int i=0;i<100;i++)
+   {
+      generate_random_number();
+      big_random_array[i]=rand_num;
+   }
+}
 
-uint64_t           pok_sched_slots[var_POK_CONFIG_SCHEDULING_NBSLOTS]
-                              = (uint64_t[]) var_POK_CONFIG_SCHEDULING_SLOTS;
-uint8_t           pok_sched_slots_allocation[var_POK_CONFIG_SCHEDULING_NBSLOTS]
-                              = (uint8_t[]) var_POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION;
+
+// 很大的全局变量数组 只给前面赋值 后面的不管，就默认值 反正程序不会访问到
+uint64_t pok_sched_slots[100];
+int rand_index;
+void init_pok_sched_slots()
+{
+   for(int i=0;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+   {
+      generate_random_number();
+      rand_index = rand_num%100;
+      pok_sched_slots[i] = (uint64_t)(((big_random_array[rand_index])%39+1)*1000000000);
+   }
+   
+}
+
+uint8_t pok_sched_slots_allocation[100];
+void init_pok_sched_slots_allocation()
+{
+   for(int i=0;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+   {
+      generate_random_number();
+      rand_index = rand_num%100;
+      pok_sched_slots_allocation[i] = (uint8_t)((big_random_array[rand_index])%1);
+   }
+   
+}
+
+
+*/
 /* end 2020.12.16 dyna pr*/
 
-// 2020.12.16 dyna pr
-// printf("WUHUWUHUWUHUW!!!!!\n");
-// printf("%d", POK_CONFIG_SCHEDULING_NBSLOTS);
-// for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++)
-// {
-//    printf("%u, ", pok_sched_slots[i]);
-// }
-// printf("\n");
-// for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++)
-// {
-//    printf("%u, ", pok_sched_slots_allocation[i]);
-// }
-// printf("\n");
 
 pok_sched_t       pok_global_sched;
 uint64_t          pok_sched_next_deadline;
@@ -112,6 +161,13 @@ void pok_sched_thread_switch (void);
 
 void pok_sched_init (void)
 {
+   printf("111111111");
+   // init some global vars
+   // init_var_POK_CONFIG_SCHEDULING_NBSLOTS();
+   // init_big_random_array();
+   // init_pok_sched_slots();
+   // init_pok_sched_slots_allocation();
+
 #ifdef POK_NEEDS_PARTITIONS 
 #if defined (POK_NEEDS_ERROR_HANDLING) || defined (POK_NEEDS_DEBUG)
    /*
@@ -129,9 +185,9 @@ void pok_sched_init (void)
    }
 
    /* 2020.12.16 dyna */
-   uint64_t sum;
-   POK_CONFIG_SCHEDULING_MAJOR_FRAME(sum, var_POK_CONFIG_SCHEDULING_SLOTS)
-   if (total_time != sum)
+   uint64_t sumpp=0;
+   for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++){sumpp += pok_sched_slots[i];}
+   if (total_time != sumpp)
    {
 #ifdef POK_NEEDS_DEBUG
       printf ("Major frame is not compliant with all time slots\n");
@@ -144,7 +200,7 @@ void pok_sched_init (void)
 #endif
 
    pok_sched_current_slot        = 0;
-   pok_sched_next_major_frame    = sum;  // 2020.12.16 dyna
+   pok_sched_next_major_frame    = sumpp;  // 2020.12.16 dyna
    pok_sched_next_deadline       = pok_sched_slots[0];
    pok_sched_next_flush          = 0;
    pok_current_partition         = pok_sched_slots_allocation[0];
