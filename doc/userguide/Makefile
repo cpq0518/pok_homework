@@ -18,7 +18,7 @@ LIBPOK_HEADERS=arch.h errno.h libm.h\
 					core/allocator.h core/thread.h core/error.h core/event.h core/semaphore.h core/syscall.h core/partition.h core/time.h\
 					middleware/blackboard.h middleware/buffer.h middleware/port.h middleware/queue.h \
 					libc/stdio.h libc/stdlib.h libc/string.h \
-					arinc653/blackboard.h arinc653/buffer.h arinc653/error.h arinc653/event.h arinc653/partition.h arinc653/process.h arinc653/queuing.h arinc653/sampling.h arinc653/semaphore.h arinc653/time.h arinc653/types.h \
+					arinc653/blackboard.h arinc653/buffer.h arinc653/error.h arinc653/event.h arinc653/partition.h arinc653/process.h arinc653/queueing.h arinc653/sampling.h arinc653/semaphore.h arinc653/time.h arinc653/types.h \
 					protocols/protocols.h protocols/ceasar.h protocols/des.h protocols/ssl.h
 
 all: $(PDFFILE)

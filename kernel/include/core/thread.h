@@ -67,6 +67,8 @@ typedef struct
 	 pok_state_t  state;
 	 uint64_t	end_time;
 	 uint64_t     wakeup_time;
+	 uint64_t     arrive_time; //self-adding
+	 char         arrive_flag; //self-adding
 #ifdef POK_NEEDS_SCHED_HFPPS
 	 uint64_t	payback; /**< Payback for HFPPS scheduling algorithm */
 #endif /* POK_NEEDS_SCHED_HFPPS */
@@ -87,6 +89,10 @@ typedef struct
 	 uint64_t     deadline;
 	 uint64_t	  weight;//self-adding
 	 uint64_t     time_capacity;
+	 // 2020.12.16 dyna self-adding
+	 uint64_t     arrive_time;
+	 char         arrive_flag;
+	 // end self-adding
 	 uint32_t     stack_size;
 	 pok_state_t  state;
 } pok_thread_attr_t;

@@ -39,7 +39,9 @@ typedef enum
   POK_STATE_WAITING = 2,
   POK_STATE_LOCK = 3,
   POK_STATE_WAIT_NEXT_ACTIVATION = 4,
-  POK_STATE_DELAYED_START = 5
+  POK_STATE_DELAYED_START = 5,
+  // 2020.12.16 dyna
+  POK_STATE_NOT_ARRIVED = 6
 } pok_state_t;
 
 void pok_sched_init (void); /* Initialize scheduling stuff */
