@@ -50,7 +50,7 @@ pok_partition_t pok_partitions[POK_CONFIG_NB_PARTITIONS];
 uint8_t			 pok_partitions_index = 0;
 
 extern uint64_t		pok_sched_slots[];
-//extern int           var_POK_CONFIG_SCHEDULING_NBSLOTS;  // 2020.12.16 dyna  length of pok_sched_slots 
+extern int           var_POK_CONFIG_SCHEDULING_NBSLOTS;  // 2020.12.16 dyna  length of pok_sched_slots 
 
 
 /**
@@ -322,11 +322,10 @@ pok_ret_t pok_partition_set_mode (const uint8_t pid, const pok_partition_mode_t 
 			       thread->end_time =  thread->wakeup_time + thread->time_capacity;
 			   } else {
                /* 2020.12.16 dyna*/
-               // uint64_t sumpp=0;
-               // POK_CONFIG_SCHEDULING_MAJOR_FRAME(sumpp, pok_sched_slots)
-               // for(int i=0;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++){sumpp += pok_sched_slots[i];}
-				 thread->next_activation = thread->wakeup_time + POK_CONFIG_SCHEDULING_MAJOR_FRAME + POK_CURRENT_PARTITION.activation;
-             //thread->next_activation = thread->wakeup_time + sumpp + POK_CURRENT_PARTITION.activation;
+               uint64_t sumpp=0;
+               for(int i=0;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++){sumpp += pok_sched_slots[i];}
+				 //thread->next_activation = thread->wakeup_time + POK_CONFIG_SCHEDULING_MAJOR_FRAME + POK_CURRENT_PARTITION.activation;
+             thread->next_activation = thread->wakeup_time + sumpp + POK_CURRENT_PARTITION.activation;
 				 thread->end_time =  thread->next_activation + thread->time_capacity;
 				 thread->state = POK_STATE_WAIT_NEXT_ACTIVATION;
 			      

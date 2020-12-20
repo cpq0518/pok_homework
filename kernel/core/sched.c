@@ -64,10 +64,10 @@ extern void pok_port_flush_partition (uint8_t);
 
 
 
-uint64_t           pok_sched_slots[POK_CONFIG_SCHEDULING_NBSLOTS]
-                              = (uint64_t[]) POK_CONFIG_SCHEDULING_SLOTS;
-uint8_t           pok_sched_slots_allocation[POK_CONFIG_SCHEDULING_NBSLOTS]
-                              = (uint8_t[]) POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION;
+// uint64_t           pok_sched_slots[POK_CONFIG_SCHEDULING_NBSLOTS]
+//                               = (uint64_t[]) POK_CONFIG_SCHEDULING_SLOTS;
+// uint8_t           pok_sched_slots_allocation[POK_CONFIG_SCHEDULING_NBSLOTS]
+//                               = (uint8_t[]) POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION;
 
 
 
@@ -75,10 +75,10 @@ uint8_t           pok_sched_slots_allocation[POK_CONFIG_SCHEDULING_NBSLOTS]
 
 /* 2020.12.16 dyna pr */
 /* Attention: only compat with test_rr_dyna*/
-/*
+
 
 // fake random serial
-int fake_random_serial[10] = {154,89,45678,6579,1367,65,4,79,1466,7754};
+int fake_random_serial[10] = {1542, 8901, 45097, 6524, 13672, 6421, 26788, 7834, 143, 7752};
 int fake_random_serial_pointer = 0;
 int rand_num;
 
@@ -95,8 +95,12 @@ void generate_random_number()
 int var_POK_CONFIG_SCHEDULING_NBSLOTS;
 void init_var_POK_CONFIG_SCHEDULING_NBSLOTS()
 {
-   generate_random_number();
-   var_POK_CONFIG_SCHEDULING_NBSLOTS = rand_num%5+3;
+   // generate_random_number();
+   // var_POK_CONFIG_SCHEDULING_NBSLOTS = rand_num%5+3;   // 3~8
+
+   var_POK_CONFIG_SCHEDULING_NBSLOTS = 5;
+
+   printf("var_POK_CONFIG_SCHEDULING_NBSLOTS initialized! Value: %d\n", var_POK_CONFIG_SCHEDULING_NBSLOTS);
 }
 
 
@@ -109,37 +113,54 @@ void init_big_random_array()
       generate_random_number();
       big_random_array[i]=rand_num;
    }
+   printf("big_random_array initialized!\n");
 }
 
 
-// 很大的全局变量数组 只给前面赋值 后面的不管，就默认值 反正程序不会访问到
-uint64_t pok_sched_slots[100];
+// uint64_t pok_sched_slots[4] = (uint64_t[]){2000000000, 40000000000, 1000000000, 10000000000};
+uint64_t pok_sched_slots[5];
 int rand_index;
 void init_pok_sched_slots()
 {
+   // for(int i=0;i<100;i++) {pok_sched_slots[i] = 99;}   // 99代表无意义的值 跳过
    for(int i=0;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++)
    {
       generate_random_number();
       rand_index = rand_num%100;
-      pok_sched_slots[i] = (uint64_t)(((big_random_array[rand_index])%39+1)*1000000000);
+      pok_sched_slots[i] = (uint64_t)(((big_random_array[rand_index])%4+1)*1000000000);  // 1~4s
    }
-   
+   printf("pok_sched_slots initialized! Value: \n");
+   printf("[%u", pok_sched_slots[0]);
+   for(int i=1;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+   {
+      printf(", %u", pok_sched_slots[i]);
+   }
+   printf("]\n");
 }
 
-uint8_t pok_sched_slots_allocation[100];
+// uint8_t pok_sched_slots_allocation[4]  = (uint8_t[]){0, 1, 0, 1};
+uint8_t pok_sched_slots_allocation[5];
 void init_pok_sched_slots_allocation()
 {
+   // for(int i=0;i<100;i++) {pok_sched_slots_allocation[i] = 99;}   // 99代表无意义的值 跳过
    for(int i=0;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++)
    {
       generate_random_number();
       rand_index = rand_num%100;
-      pok_sched_slots_allocation[i] = (uint8_t)((big_random_array[rand_index])%1);
+      pok_sched_slots_allocation[i] = (uint8_t)((big_random_array[rand_index])%2);
    }
-   
+
+   printf("pok_sched_slots_allocation initialized!\n");
+   printf("[%u", pok_sched_slots_allocation[0]);
+   for(int i=1;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+   {
+      printf(", %u", pok_sched_slots_allocation[i]);
+   }
+   printf("]\n");
 }
 
 
-*/
+
 /* end 2020.12.16 dyna pr*/
 
 
@@ -161,7 +182,7 @@ void pok_sched_thread_switch (void);
 
 void pok_sched_init (void)
 {
-   printf("111111111");
+   // printf("111111111");
    // init some global vars
    // init_var_POK_CONFIG_SCHEDULING_NBSLOTS();
    // init_big_random_array();
@@ -179,14 +200,14 @@ void pok_sched_init (void)
 
    total_time = 0;
 
-   for (slot = 0;slot < POK_CONFIG_SCHEDULING_NBSLOTS;slot++)
+   for (slot = 0;slot < var_POK_CONFIG_SCHEDULING_NBSLOTS;slot++)
    {
       total_time = total_time + pok_sched_slots[slot];
    }
 
    /* 2020.12.16 dyna */
    uint64_t sumpp=0;
-   for(int i=0;i<POK_CONFIG_SCHEDULING_NBSLOTS;i++){sumpp += pok_sched_slots[i];}
+   for(int i=0;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++){sumpp += pok_sched_slots[i];}
    if (total_time != sumpp)
    {
 #ifdef POK_NEEDS_DEBUG
@@ -223,12 +244,15 @@ uint8_t pok_sched_get_priority_max (const pok_sched_t sched_type)
 #ifdef POK_NEEDS_PARTITIONS
 uint8_t	pok_elect_partition()
 {
+   
   uint8_t next_partition = POK_SCHED_CURRENT_PARTITION;
 # if POK_CONFIG_NB_PARTITIONS > 1
   uint64_t now = POK_GETTICK();
+  // printf("[DEBUG] %u: ENTER pok_elect_partition()\n", now);
 
   if (pok_sched_next_deadline <= now)
   {
+     // printf("[DEBUG] here, we change the partition\n");
       /* Here, we change the partition */
 #  if defined (POK_NEEDS_PORTS_SAMPLING) || defined (POK_NEEDS_PORTS_QUEUEING)
 #    if defined (POK_FLUSH_PERIOD)
@@ -253,9 +277,29 @@ uint8_t	pok_elect_partition()
     }
 #    endif /* defined POK_FLUSH_PERIOD || POK_NEEDS_FLUSH_ON_WINDOWS */
 #  endif /* defined (POK_NEEDS_PORTS....) */
-
-    pok_sched_current_slot = (pok_sched_current_slot + 1) % POK_CONFIG_SCHEDULING_NBSLOTS;
+    pok_sched_current_slot = (pok_sched_current_slot + 1) % var_POK_CONFIG_SCHEDULING_NBSLOTS;
     pok_sched_next_deadline = pok_sched_next_deadline + pok_sched_slots[pok_sched_current_slot];
+
+    // 2020.12.16 dyna debug
+   //  printf("[DEBUG] pok_sched_slots=: ");
+   // printf("[%u", pok_sched_slots[0]);
+   // for(int i=1;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+   // {
+   //    printf(", %u", pok_sched_slots[i]);
+   // }
+   // printf("]\n");
+
+   // printf("[DEBUG] pok_sched_slots_allocation: ");
+   // printf("[%u", pok_sched_slots_allocation[0]);
+   // for(int i=1;i<var_POK_CONFIG_SCHEDULING_NBSLOTS;i++)
+   // {
+   //    printf(", %u", pok_sched_slots_allocation[i]);
+   // }
+   // printf("]\n");
+
+   //  printf("[DEBUG] %u: pok_sched_current_slot: %u\n", now, pok_sched_current_slot);
+   //  printf("[DEBUG] %u: pok_sched_next_deadline: %u\n", now, pok_sched_next_deadline);
+    
 /*
     *  FIXME : current debug session about exceptions-handled
       printf ("Switch from partition %d to partition %d\n", pok_current_partition, pok_sched_current_slot);
@@ -313,6 +357,7 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
    
    // 2020.12.16 dyna
    // 100000 is a small number that ensures exceptions won't happen
+   
    if ((thread->state == POK_STATE_NOT_ARRIVED) && (thread->arrive_time <= now) && (thread->arrive_flag == 0)) 
      {
        printf("I arrived! Current time=%u\n", now);
@@ -332,6 +377,7 @@ uint32_t	pok_elect_thread(uint8_t new_partition_id)
        thread->next_activation = thread->next_activation + thread->period; 
      }
    }
+
 
    /*
     * We elect the thread to be executed.
@@ -445,6 +491,8 @@ void pok_sched()
   
     elected_partition = pok_elect_partition();
     elected_thread = pok_elect_thread(elected_partition);
+   //  printf("[DEBUG] elected_partition: %d\n", elected_partition);
+   //  printf("[DEBUG] elected_thread: %d\n", elected_thread);
   }
 
    pok_current_partition = elected_partition;

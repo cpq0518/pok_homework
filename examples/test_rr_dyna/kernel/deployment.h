@@ -17,7 +17,6 @@
 #ifndef __POK_KERNEL_GENERATED_DEPLOYMENT_H_
 #define __POK_KERNEL_GENERATED_DEPLOYMENT_H_ 
 #include <core/schedvalues.h>
-#include <stdlib.h>
 #define POK_NEEEDS_DEBUG 1
 
 #define POK_NEEDS_THREADS      1
@@ -33,13 +32,13 @@
 #define POK_CONFIG_NB_PARTITIONS    2
 
 #define POK_CONFIG_PARTITIONS_SIZE  {120 * 1024, 120 * 1024};
-#define POK_CONFIG_PARTITIONS_SCHEDULER {POK_SCHED_RR,POK_SCHED_EDF}
+#define POK_CONFIG_PARTITIONS_SCHEDULER {POK_SCHED_RR,POK_SCHED_RR}
 #define POK_CONFIG_PROGRAM_NAME  {"pr1/pr1.elf","pr2/pr2.elf"};
 
-#define POK_CONFIG_SCHEDULING_SLOTS {2000000000, 40000000000, 1000000000, 10000000000}   // 1~40 * 10e9 global var: pok_config_scheduling_slots 
-#define POK_CONFIG_SCHEDULING_MAJOR_FRAME 53000000000
-#define POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION {0,1,0,1}  // 0~1 global var: pok_config_scheduling_slots_allocation
-#define POK_CONFIG_SCHEDULING_NBSLOTS 4  // 3~8: global var: pok_config_scheduling_nbslots
+// #define POK_CONFIG_SCHEDULING_SLOTS {2000000000, 40000000000, 1000000000, 10000000000}   // 1~4 * 10e9 global var: pok_config_scheduling_slots 
+// #define POK_CONFIG_SCHEDULING_MAJOR_FRAME 53000000000
+// #define POK_CONFIG_SCHEDULING_SLOTS_ALLOCATION {0,1,0,1}  // 0~1 global var: pok_config_scheduling_slots_allocation
+// #define POK_CONFIG_SCHEDULING_NBSLOTS 4  // 3~8: global var: pok_config_scheduling_nbslots
 
 // 2020.12.16 dyna pr
 // #define POK_CONFIG_SCHEDULING_NBSLOTS(a) {(a)=rand()%5+3;}  // 3~8: 

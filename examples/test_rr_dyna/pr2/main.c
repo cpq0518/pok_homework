@@ -53,20 +53,20 @@ int main ()
   tattr.entry = pinger_job;
   int rand_1 = rand() % 3 + 2;
   // printf("rand_1: %d\n", rand_1);
-  tattr.arrive_time = fake_rand(rand_1) ;   // 第2~4秒到达 因为怕等待时间太长就设的范围比较小 而且超过5 printf会溢出展示效果不好（实际运行正常）
+  tattr.arrive_time = 0 ;   // 第2~4秒到达 因为怕等待时间太长就设的范围比较小 而且超过5 printf会溢出展示效果不好（实际运行正常）
   tattr.state = 6; //POK_STATE_NOT_ARRIVED
 
   ret = pok_thread_create(&tid , &tattr);
-  printf ("[P2] thread create (1) returns=%d arrive_time=%u\n", ret, tattr.arrive_time);
+  printf ("[P2] thread create (1) returns=%d\n", ret);
 
   tattr.priority = 42;
   tattr.entry = pinger_job2;
   int rand_2 = rand() % 3 + 2;
-  tattr.arrive_time = fake_rand(rand_2) ;   // 第2~4秒到达 因为怕等待时间太长就设的范围比较小 而且超过5 printf会溢出展示效果不好（实际运行正常）
+  tattr.arrive_time = 0 ;   // 第2~4秒到达 因为怕等待时间太长就设的范围比较小 而且超过5 printf会溢出展示效果不好（实际运行正常）
   tattr.state = 6; //POK_STATE_NOT_ARRIVED
 
   ret = pok_thread_create(&tid2 , &tattr);
-  printf ("[P2] thread create (2) returns=%d arrive_time=%u\n", ret, tattr.arrive_time);
+  printf ("[P2] thread create (2) returns=%d\n", ret);
 
   pok_partition_set_mode (POK_PARTITION_MODE_NORMAL);
   pok_thread_wait_infinite ();

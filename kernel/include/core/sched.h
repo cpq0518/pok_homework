@@ -54,6 +54,13 @@ void pok_sched (void);      /* Main scheduling function, this function
 uint8_t pok_sched_get_priority_min (const pok_sched_t sched_type);
 uint8_t pok_sched_get_priority_max (const pok_sched_t sched_type);
 
+/* 2020.12.16 dyna: Functions to init global vars */
+void generate_random_number();
+void init_var_POK_CONFIG_SCHEDULING_NBSLOTS();
+void init_big_random_array();
+void init_pok_sched_slots();
+void init_pok_sched_slots_allocation();
+
 /* Scheduler election method */
 uint8_t pok_sched_election (void);
 uint32_t pok_sched_part_rr (const uint32_t ,const uint32_t,const uint32_t prev_thread,const uint32_t current_thread);

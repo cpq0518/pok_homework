@@ -35,12 +35,16 @@ int main ()
 
   tattr.priority = 42;
   tattr.entry = pinger_job;
+  tattr.arrive_time = 0;  
+  tattr.state = 6; //POK_STATE_NOT_ARRIVED
 
   ret = pok_thread_create(&tid , &tattr);
   printf("[P1] pok_thread_create (1) return=%d\n", ret);
 
   tattr.priority = 42;
   tattr.entry = pinger_job2;
+  tattr.arrive_time = 0;  
+  tattr.state = 6; //POK_STATE_NOT_ARRIVED
 
   ret = pok_thread_create(&tid , &tattr);
   printf("[P1] pok_thread_create (2) return=%d\n", ret);

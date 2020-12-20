@@ -65,6 +65,12 @@ void pok_boot ()
 
 #if defined (POK_NEEDS_DEBUG) || defined (POK_NEEDS_CONSOLE)
   pok_cons_write ("POK kernel initialized\n", 23);
+  // 2020.12.16 dyna
+  // init some var in sched.c
+  init_var_POK_CONFIG_SCHEDULING_NBSLOTS();
+  init_big_random_array();
+  init_pok_sched_slots();
+  init_pok_sched_slots_allocation();
 #endif
 
 #ifdef POK_NEEDS_INSTRUMENTATION
